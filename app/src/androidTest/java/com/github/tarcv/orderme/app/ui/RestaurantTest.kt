@@ -33,4 +33,13 @@ class RestaurantTest {
 
         onView(withId(R.id.restaurant_name)).check(matches(isDisplayed()))
     }
+
+    @Test
+    fun verifyHakkasanMenuButtonIsVisible() {
+        onView(withId(R.id.login_later_button)).perform(click())
+
+        onView(withText("Hakkasan")).perform(click())
+
+        onView(withText("Menu")).check(matches(isDisplayed()))
+    }
 }
