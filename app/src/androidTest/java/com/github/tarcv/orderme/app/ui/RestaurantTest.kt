@@ -27,7 +27,7 @@ class RestaurantTest {
     fun verifyRestTitle() {
         onView(withId(R.id.login_later_button)).perform(click())
 
-        sleep(200)
+        sleep(2000)
 
         onView(withText("Ocean Seafood")).perform(click())
 
