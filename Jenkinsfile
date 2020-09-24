@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'javiersantos/android-ci:27.0.3'
+            image 'javiersantos/android-ci:28.0.3'
         }
     }
     stages {
