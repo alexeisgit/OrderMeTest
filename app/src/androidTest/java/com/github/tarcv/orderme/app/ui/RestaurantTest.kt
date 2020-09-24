@@ -33,4 +33,15 @@ class RestaurantTest {
 
         onView(withId(R.id.restaurant_name)).check(matches(isDisplayed()))
     }
+
+    @Test
+    fun verifyRomanovDetectTableBtn1() {
+        onView(withId(R.id.login_later_button)).perform(click())
+
+        sleep(2000)
+
+        onView(withText("Romanov")).perform(click())
+
+        onView(withText("Detect table")).check(matches(isDisplayed()))
+    }
 }
