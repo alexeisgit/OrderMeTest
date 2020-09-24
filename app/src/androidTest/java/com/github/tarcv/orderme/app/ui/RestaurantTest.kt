@@ -41,7 +41,5 @@ class RestaurantTest {
         onView(withText("Hakkasan")).perform(click())
 
         onView(withText("Call a waiter")).check(matches(isDisplayed()))
-
     }
-
 }
