@@ -11,7 +11,6 @@ pipeline {
                  sh '$ANDROID_HOME/platform-tools/adb connect ${EMULATOR}:5555'
                  sh '$ANDROID_HOME/platform-tools/adb uninstall com.github.tarcv.orderme.app || true'
                  sh '$ANDROID_HOME/platform-tools/adb uninstall com.github.tarcv.orderme.app.test || true'
-                 sh './gradlew --stop'
                  sh './gradlew clean connectedDebugAndroidTest'}
             }
         }
