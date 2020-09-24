@@ -33,4 +33,21 @@ class RestaurantTest {
 
         onView(withId(R.id.restaurant_name)).check(matches(isDisplayed()))
     }
+
+    @Test
+    fun verifyBeatyEssexPhoneButton() {
+        onView(withId(R.id.login_later_button)).perform(click())
+
+        sleep(2000)
+
+        onView(withText("Beauty & Essex")).perform(click())
+
+        sleep(2000)
+
+        onView(withText("Phone")).check(matches(isDisplayed()))
+
+        sleep(2000)
+
+    }
+
 }
