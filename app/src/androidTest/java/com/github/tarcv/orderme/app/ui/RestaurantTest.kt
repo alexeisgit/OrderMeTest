@@ -13,6 +13,7 @@ import com.github.tarcv.orderme.app.R
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.lang.Thread.sleep
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -25,6 +26,8 @@ class RestaurantTest {
     @Test
     fun verifyRestTitle() {
         onView(withId(R.id.login_later_button)).perform(click())
+
+        sleep(2000)
 
         onView(withText("Ocean Seafood")).perform(click())
 
