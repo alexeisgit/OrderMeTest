@@ -47,7 +47,5 @@ class RestaurantTest {
         onView(withText("Phone")).check(matches(isDisplayed()))
 
         sleep(2000)
-
     }
-
 }
