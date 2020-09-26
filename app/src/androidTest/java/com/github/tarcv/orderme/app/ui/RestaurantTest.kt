@@ -36,9 +36,13 @@ class RestaurantTest {
     @Test
     fun verifyThatImageIsVisible() {
         onView(withId(R.id.login_later_button)).perform(click())
+
         sleep(2000)
+
         onView(withText("Ocean Seafood")).perform(click())
+
         onView(withId(R.id.restaurant_image_view)).check(matches(isDisplayed()))
+
         onView(withId(R.id.restaurant_image_view)).check(matches(isEnabled()))
     }
 }
