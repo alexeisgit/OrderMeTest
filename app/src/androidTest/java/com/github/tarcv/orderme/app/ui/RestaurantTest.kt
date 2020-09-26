@@ -26,7 +26,7 @@ class RestaurantTest {
     @Test
     fun verifyRestTitle() {
         onView(withId(R.id.login_later_button)).perform(click())
-
+        println("found a login later button and clicked on it")
         sleep(2000)
 
         onView(withText("Ocean Seafood")).perform(click())
@@ -45,5 +45,18 @@ class RestaurantTest {
         sleep(2000)
 
         onView(withText("Call a waiter")).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun verifyRomanovDetectTableBtn1() {
+        onView(withId(R.id.login_later_button)).perform(click())
+
+        sleep(2000)
+
+        onView(withText("Romanov")).perform(click())
+
+        sleep(2000)
+
+        onView(withText("Detect table")).check(matches(isDisplayed()))
     }
 }
