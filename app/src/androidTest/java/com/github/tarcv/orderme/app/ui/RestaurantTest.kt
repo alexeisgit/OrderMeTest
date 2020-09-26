@@ -33,8 +33,10 @@ class RestaurantTest {
 
         onView(withId(R.id.restaurant_name)).check(matches(isDisplayed()))
     }
+  
     @Test
     fun verifyThatImageIsVisible() {
+
         onView(withId(R.id.login_later_button)).perform(click())
 
         sleep(2000)
@@ -44,5 +46,5 @@ class RestaurantTest {
         onView(withId(R.id.restaurant_image_view)).check(matches(isDisplayed()))
 
         onView(withId(R.id.restaurant_image_view)).check(matches(isEnabled()))
+
     }
-}
