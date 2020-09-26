@@ -11,6 +11,8 @@ import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.github.tarcv.orderme.app.R
 import com.github.tarcv.orderme.app.ui.Screens.LoginScreen
+import com.github.tarcv.orderme.app.ui.Screens.RestaurantListScreen
+import com.github.tarcv.orderme.app.ui.Screens.RestaurantScreen
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,22 +31,26 @@ class RestaurantTest {
         val loginScreen = LoginScreen()
         loginScreen.loginLater()
 
-        println("found a login later button and clicked on it")
         sleep(2000)
 
-        onView(withText("Ocean Seafood")).perform(click())
+        val restaurantListScreen = RestaurantListScreen()
+        restaurantListScreen.selectRestaurant("Ocean Seafood")
 
-        onView(withId(R.id.restaurant_name)).check(matches(isDisplayed()))
+        val restaurantScreen = RestaurantScreen()
+        restaurantScreen.checkIfTitleIsDisplayed()
     }
 
     @Test
     fun verifyRomanovDetectTableBtn1() {
-        onView(withId(R.id.login_later_button)).perform(click())
+        val loginScreen = LoginScreen()
+        loginScreen.loginLater()
 
         sleep(2000)
 
-        onView(withText("Romanov")).perform(click())
+        val restaurantListScreen = RestaurantListScreen()
+        restaurantListScreen.selectRestaurant("Romanov")
 
-        onView(withText("Detect table")).check(matches(isDisplayed()))
+        val restaurantScreen = RestaurantScreen()
+        restaurantScreen.checkIfTextIsDisplayed("Detect table")
     }
 }
