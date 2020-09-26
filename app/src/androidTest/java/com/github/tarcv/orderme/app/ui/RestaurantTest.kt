@@ -26,12 +26,23 @@ class RestaurantTest {
     @Test
     fun verifyRestTitle() {
         onView(withId(R.id.login_later_button)).perform(click())
-
+        println("found a login later button and clicked on it")
         sleep(2000)
 
         onView(withText("Ocean Seafood")).perform(click())
 
         onView(withId(R.id.restaurant_name)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun verifyRomanovDetectTableBtn1() {
+        onView(withId(R.id.login_later_button)).perform(click())
+
+        sleep(2000)
+
+        onView(withText("Romanov")).perform(click())
+
+        onView(withText("Detect table")).check(matches(isDisplayed()))
     }
 
     @Test
@@ -43,5 +54,6 @@ class RestaurantTest {
         onView(withText("Hakkasan")).perform(click())
 
         onView(withText("Menu")).check(matches(isDisplayed()))
-    }
+
+        }
 }
