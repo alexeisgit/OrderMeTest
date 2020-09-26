@@ -10,6 +10,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.github.tarcv.orderme.app.R
+import com.github.tarcv.orderme.app.ui.Screens.LoginScreen
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,7 +26,9 @@ class RestaurantTest {
 
     @Test
     fun verifyRestTitle() {
-        onView(withId(R.id.login_later_button)).perform(click())
+        val loginScreen = LoginScreen()
+        loginScreen.loginLater()
+
         println("found a login later button and clicked on it")
         sleep(2000)
 
