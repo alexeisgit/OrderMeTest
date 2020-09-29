@@ -34,6 +34,22 @@ class RestaurantTest {
     }
 
     @Test
+    fun verifyHakkasanCallaWaiterButtonIsVisible() {
+        val loginScreen = LoginScreen()
+        loginScreen.loginLater()
+
+        sleep(2000)
+
+        val restaurantListScreen = RestaurantListScreen()
+        restaurantListScreen.selectRestaurant("Hakkasan")
+
+        sleep(2000)
+
+        val restaurantScreen = RestaurantScreen()
+        restaurantScreen.checkIfButtonIsVisible("Call a waiter")
+    }
+
+    @Test
     fun verifyRomanovDetectTableBtn1() {
         val loginScreen = LoginScreen()
         loginScreen.loginLater()
@@ -42,6 +58,8 @@ class RestaurantTest {
 
         val restaurantListScreen = RestaurantListScreen()
         restaurantListScreen.selectRestaurant("Romanov")
+
+        sleep(2000)
 
         val restaurantScreen = RestaurantScreen()
         restaurantScreen.checkIfTextIsDisplayed("Detect table")

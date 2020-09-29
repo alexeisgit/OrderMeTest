@@ -13,4 +13,6 @@ class RestaurantScreen {
     fun checkIfTitleIsDisplayed() = onView(restTitleMatcher).check(matches(isDisplayed()))
 
     fun checkIfTextIsDisplayed(text: String) = onView(withText(text)).check(matches(isDisplayed()))
+
+    fun checkIfButtonIsVisible(text: String) = onView(withText(text)).check(matches(isDisplayed()))
 }
