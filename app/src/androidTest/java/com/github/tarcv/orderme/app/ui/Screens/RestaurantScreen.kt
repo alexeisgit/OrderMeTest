@@ -3,14 +3,20 @@ package com.github.tarcv.orderme.app.ui.Screens
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.github.tarcv.orderme.app.R
 
 class RestaurantScreen {
     private val restTitleMatcher = withId(R.id.restaurant_name)
+    private val restImageView = withId(R.id.restaurant_image_view)
 
     fun checkIfTitleIsDisplayed() = onView(restTitleMatcher).check(matches(isDisplayed()))
+
+    fun checkIfImageIsDisplayed() = onView(restImageView).check(matches(isDisplayed()))
+
+    fun checkIfImageIsEnabled() = onView(restImageView).check(matches(isEnabled()))
 
     fun checkIfTextIsDisplayed(text: String) = onView(withText(text)).check(matches(isDisplayed()))
 }
