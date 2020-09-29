@@ -48,17 +48,18 @@ class RestaurantTest {
     }
 
     @Test
-    fun verifyBeatyEssexPhoneButton() {
-        onView(withId(R.id.login_later_button)).perform(click())
+    fun verifyBeautyEssexPhoneButton() {
+        val loginScreen = LoginScreen()
+        loginScreen.loginLater()
 
         sleep(2000)
 
-        onView(withText("Beauty & Essex")).perform(click())
+        val restaurantListScreen = RestaurantListScreen()
+        restaurantListScreen.selectRestaurant("Beauty & Essex")
 
         sleep(2000)
 
-        onView(withText("Phone")).check(matches(isDisplayed()))
-
-        sleep(2000)
+        val restaurantScreen = RestaurantScreen()
+        restaurantScreen.checkIfTextIsDisplayed("Phone")
     }
 }
