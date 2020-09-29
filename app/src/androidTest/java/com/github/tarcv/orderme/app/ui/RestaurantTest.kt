@@ -64,4 +64,20 @@ class RestaurantTest {
         val restaurantScreen = RestaurantScreen()
         restaurantScreen.checkIfTextIsDisplayed("Detect table")
     }
+
+    @Test
+    fun verifyBeautyEssexPhoneButton() {
+        val loginScreen = LoginScreen()
+        loginScreen.loginLater()
+
+        sleep(2000)
+
+        val restaurantListScreen = RestaurantListScreen()
+        restaurantListScreen.selectRestaurant("Beauty & Essex")
+
+        sleep(2000)
+
+        val restaurantScreen = RestaurantScreen()
+        restaurantScreen.checkIfTextIsDisplayed("Phone")
+    }
 }
