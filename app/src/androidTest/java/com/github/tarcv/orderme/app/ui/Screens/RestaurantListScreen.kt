@@ -7,7 +7,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 class RestaurantListScreen {
 
     fun selectRestaurant(name: String) {
-      
         onView(withText(name)).perform(click())
     }
 }
