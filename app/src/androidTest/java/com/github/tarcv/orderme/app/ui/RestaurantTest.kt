@@ -21,39 +21,29 @@ class RestaurantTest {
 
     @Test
     fun verifyRestTitle() {
-
         val loginScreen = LoginScreen()
-
-        loginScreen.clickOnLoginLaterButton()
+        loginScreen.loginLater()
 
         sleep(2000)
 
         val restaurantListScreen = RestaurantListScreen()
-
         restaurantListScreen.selectRestaurant("Ocean Seafood")
 
         val restaurantScreen = RestaurantScreen()
-
         restaurantScreen.checkIfTitleIsDisplayed()
     }
 
     @Test
-    fun verifyThatImageIsVisible() {
-
+    fun verifyRomanovDetectTableBtn1() {
         val loginScreen = LoginScreen()
-
-        loginScreen.clickOnLoginLaterButton()
+        loginScreen.loginLater()
 
         sleep(2000)
 
         val restaurantListScreen = RestaurantListScreen()
-
-        restaurantListScreen.selectRestaurant("Ocean Seafood")
+        restaurantListScreen.selectRestaurant("Romanov")
 
         val restaurantScreen = RestaurantScreen()
-
-        restaurantScreen.checkIfImageIsDisplayed()
-
-        restaurantScreen.checkIfImageIsEnabled()
+        restaurantScreen.checkIfTextIsDisplayed("Detect table")
     }
 }
