@@ -1,15 +1,11 @@
 package com.github.tarcv.orderme.app.ui
 
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
-import com.github.tarcv.orderme.app.R
+import com.github.tarcv.orderme.app.ui.Screens.LoginScreen
+import com.github.tarcv.orderme.app.ui.Screens.RestaurantListScreen
+import com.github.tarcv.orderme.app.ui.Screens.RestaurantScreen
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,24 +21,80 @@ class RestaurantTest {
 
     @Test
     fun verifyRestTitle() {
-        onView(withId(R.id.login_later_button)).perform(click())
-        println("found a login later button and clicked on it")
+        val loginScreen = LoginScreen()
+        loginScreen.loginLater()
+
         sleep(2000)
 
-        onView(withText("Ocean Seafood")).perform(click())
+        val restaurantListScreen = RestaurantListScreen()
+        restaurantListScreen.selectRestaurant("Ocean Seafood")
 
-        onView(withId(R.id.restaurant_name)).check(matches(isDisplayed()))
+        val restaurantScreen = RestaurantScreen()
+        restaurantScreen.checkIfTitleIsDisplayed()
+    }
+
+    @Test
+    fun verifyHakkasanCallaWaiterButtonIsVisible() {
+        val loginScreen = LoginScreen()
+        loginScreen.loginLater()
+
+        sleep(2000)
+
+        val restaurantListScreen = RestaurantListScreen()
+        restaurantListScreen.selectRestaurant("Hakkasan")
+
+        sleep(2000)
+
+        val restaurantScreen = RestaurantScreen()
+        restaurantScreen.checkIfButtonIsVisible("Call a waiter")
     }
 
     @Test
     fun verifyRomanovDetectTableBtn1() {
-        onView(withId(R.id.login_later_button)).perform(click())
+        val loginScreen = LoginScreen()
+        loginScreen.loginLater()
 
         sleep(2000)
 
-        onView(withText("Romanov")).perform(click())
+        val restaurantListScreen = RestaurantListScreen()
+        restaurantListScreen.selectRestaurant("Romanov")
 
-        onView(withText("Detect table")).check(matches(isDisplayed()))
+        sleep(2000)
+
+        val restaurantScreen = RestaurantScreen()
+        restaurantScreen.checkIfTextIsDisplayed("Detect table")
+    }
+
+    @Test
+    fun verifyBeautyEssexPhoneButton() {
+        val loginScreen = LoginScreen()
+        loginScreen.loginLater()
+
+        sleep(2000)
+
+        val restaurantListScreen = RestaurantListScreen()
+        restaurantListScreen.selectRestaurant("Beauty & Essex")
+
+        sleep(2000)
+
+        val restaurantScreen = RestaurantScreen()
+        restaurantScreen.checkIfTextIsDisplayed("Phone")
+    }
+
+    @Test
+    fun verifyRomanovMenuBtn() {
+        val loginScreen = LoginScreen()
+        loginScreen.loginLater()
+
+        sleep(2000)
+
+        val restaurantListScreen = RestaurantListScreen()
+        restaurantListScreen.selectRestaurant("Romanov")
+
+        sleep(2000)
+
+        val restaurantScreen = RestaurantScreen()
+        restaurantScreen.checkIfTextIsDisplayed("Menu")
     }
 
     @Test
