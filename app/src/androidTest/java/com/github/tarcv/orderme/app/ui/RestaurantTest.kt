@@ -110,5 +110,4 @@ class RestaurantTest {
         val restaurantScreen = RestaurantScreen()
         restaurantScreen.checkIfTextIsDisplayed("Menu")
     }
-
 }
