@@ -1,4 +1,4 @@
-package com.github.tarcv.orderme.app.ui.Screens
+package com.github.tarcv.orderme.app.ui.screens
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click

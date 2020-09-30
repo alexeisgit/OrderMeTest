@@ -1,11 +1,15 @@
-package com.github.tarcv.orderme.app.ui
+package com.github.tarcv.orderme.app.ui.tests
 
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
-import com.github.tarcv.orderme.app.ui.Screens.LoginScreen
-import com.github.tarcv.orderme.app.ui.Screens.RestaurantListScreen
-import com.github.tarcv.orderme.app.ui.Screens.RestaurantScreen
+import com.github.tarcv.orderme.app.ui.robots.login
+import com.github.tarcv.orderme.app.ui.robots.restaurant
+import com.github.tarcv.orderme.app.ui.robots.restaurantList
+import com.github.tarcv.orderme.app.ui.screens.LoginScreen
+import com.github.tarcv.orderme.app.ui.screens.RestaurantListScreen
+import com.github.tarcv.orderme.app.ui.screens.RestaurantScreen
+import com.github.tarcv.orderme.app.ui.SplashActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -21,16 +25,18 @@ class RestaurantTest {
 
     @Test
     fun verifyRestTitle() {
-        val loginScreen = LoginScreen()
-        loginScreen.loginLater()
+        login {
+            loginLater()
+            sleep()
+        }
 
-        sleep(2000)
+        restaurantList {
+            selectRestaurant("Ocean Seafood")
+        }
 
-        val restaurantListScreen = RestaurantListScreen()
-        restaurantListScreen.selectRestaurant("Ocean Seafood")
-
-        val restaurantScreen = RestaurantScreen()
-        restaurantScreen.checkIfTitleIsDisplayed()
+        restaurant {
+            checkIfTitleIsDisplayed()
+        }
     }
 
     @Test
@@ -154,5 +160,20 @@ class RestaurantTest {
 
         val restaurantScreen = RestaurantScreen()
         restaurantScreen.checkIfTextIsDisplayed("Reservation")
+    }
+
+    @Test
+    fun verifyBurgerRest() {
+        login {
+            loginLater()
+            sleep()
+        }
+        restaurantList {
+            selectRestaurant("Burger")
+        }
+
+        restaurant {
+            checkIfTitleIsDisplayed()
+        }
     }
 }
