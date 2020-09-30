@@ -66,6 +66,19 @@ class RestaurantTest {
     }
 
     @Test
+    fun verifyRomanovRestaurantLocation() {
+        val loginScreen = LoginScreen()
+        loginScreen.loginLater()
+        sleep(2000)
+
+        val restaurantListScreen = RestaurantListScreen()
+        restaurantListScreen.selectRestaurant("Romanov")
+        sleep(2000)
+
+        val restaurantScreen = RestaurantScreen()
+        restaurantScreen.checkIfTextIsDisplayed("Location")
+    }
+
     fun verifyBeautyEssexPhoneButton() {
         val loginScreen = LoginScreen()
         loginScreen.loginLater()
