@@ -11,6 +11,7 @@ fun restaurant(restaurantFunction: RestaurantRobot.() -> Unit) =
 
 class RestaurantRobot {
     private val restTitleMatcher = withId(R.id.restaurant_name)
+    private val restOceanSeafoodImage = withId(R.id.restaurant_image_view)
 
     fun checkIfTitleIsDisplayed() = onView(restTitleMatcher)
             .check(matches(ViewMatchers.isDisplayed()))
@@ -19,5 +20,8 @@ class RestaurantRobot {
             .check(matches(ViewMatchers.isDisplayed()))
 
     fun checkIfButtonIsVisible(text: String) = onView(ViewMatchers.withText(text))
+            .check(matches(ViewMatchers.isDisplayed()))
+
+    fun checkIfImageIsDisplayed() = onView(restOceanSeafoodImage)
             .check(matches(ViewMatchers.isDisplayed()))
 }

@@ -178,4 +178,18 @@ class RestaurantTest {
             checkIfTitleIsDisplayed()
         }
     }
+
+    @Test
+    fun verifyRestImageIsVisible() {
+        login {
+            loginLater()
+            sleep()
+        }
+        restaurantList {
+            selectRestaurant("Ocean Seafood")
+        }
+        restaurant {
+            checkIfImageIsDisplayed()
+        }
+    }
 }
