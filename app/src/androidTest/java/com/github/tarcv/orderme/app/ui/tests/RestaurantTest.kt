@@ -118,19 +118,19 @@ class RestaurantTest {
 
     @Test
     fun verifyLocationButtonIsVisible() {
-            val loginScreen = LoginScreen()
-            loginScreen.loginLater()
+        val loginScreen = LoginScreen()
+        loginScreen.loginLater()
 
-            sleep(2000)
+        sleep(2000)
 
-            val restaurantListScreen = RestaurantListScreen()
-            restaurantListScreen.selectRestaurant("Ocean Seafood")
+        val restaurantListScreen = RestaurantListScreen()
+        restaurantListScreen.selectRestaurant("Ocean Seafood")
 
-            sleep(2000)
+        sleep(2000)
 
-            val restaurantScreen = RestaurantScreen()
-            restaurantScreen.checkIfTextIsDisplayed("Location")
-        }
+        val restaurantScreen = RestaurantScreen()
+        restaurantScreen.checkIfTextIsDisplayed("Location")
+    }
 
     @Test
     fun verifyHakkasanMenuButtonIsVisible() {
@@ -150,16 +150,18 @@ class RestaurantTest {
 
     @Test
     fun verifyHakkasanReservationBtn() {
-        val loginScreen = LoginScreen()
-        loginScreen.loginLater()
+        login {
+            loginLater()
+            sleep()
+        }
 
-        sleep(2000)
+        restaurantList {
+            selectRestaurant("Hakkasan")
+        }
 
-        val restaurantListScreen = RestaurantListScreen()
-        restaurantListScreen.selectRestaurant("Hakkasan")
-
-        val restaurantScreen = RestaurantScreen()
-        restaurantScreen.checkIfTextIsDisplayed("Reservation")
+        restaurant {
+            checkIfTextIsDisplayed("Reservation")
+        }
     }
 
     @Test
