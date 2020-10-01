@@ -57,18 +57,18 @@ class RestaurantTest {
 
     @Test
     fun verifyRomanovDetectTableBtn1() {
-        val loginScreen = LoginScreen()
-        loginScreen.loginLater()
+        login {
+            loginLater()
+            sleep()
+        }
 
-        sleep(2000)
+        restaurantList {
+            selectRestaurant("Romanov")
+        }
 
-        val restaurantListScreen = RestaurantListScreen()
-        restaurantListScreen.selectRestaurant("Romanov")
-
-        sleep(2000)
-
-        val restaurantScreen = RestaurantScreen()
-        restaurantScreen.checkIfTextIsDisplayed("Detect table")
+        restaurant {
+            checkIfTextIsDisplayed("Detect table")
+        }
     }
 
     @Test
@@ -102,18 +102,18 @@ class RestaurantTest {
 
     @Test
     fun verifyRomanovMenuBtn() {
-        val loginScreen = LoginScreen()
-        loginScreen.loginLater()
+        login {
+            loginLater()
+            sleep()
+        }
 
-        sleep(2000)
+        restaurantList {
+            selectRestaurant("Romanov")
+        }
 
-        val restaurantListScreen = RestaurantListScreen()
-        restaurantListScreen.selectRestaurant("Romanov")
-
-        sleep(2000)
-
-        val restaurantScreen = RestaurantScreen()
-        restaurantScreen.checkIfTextIsDisplayed("Menu")
+        restaurant {
+            checkIfTextIsDisplayed("Menu")
+        }
     }
 
     @Test
