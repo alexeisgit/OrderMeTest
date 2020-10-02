@@ -118,18 +118,18 @@ class RestaurantTest {
 
     @Test
     fun verifyLocationButtonIsVisible() {
-        val loginScreen = LoginScreen()
-        loginScreen.loginLater()
+        login {
+            loginLater()
+            sleep()
+        }
 
-        sleep(2000)
+        restaurantList {
+            selectRestaurant("Ocean Seafood")
+        }
 
-        val restaurantListScreen = RestaurantListScreen()
-        restaurantListScreen.selectRestaurant("Ocean Seafood")
-
-        sleep(2000)
-
-        val restaurantScreen = RestaurantScreen()
-        restaurantScreen.checkIfTextIsDisplayed("Location")
+        restaurant {
+            checkIfTextIsDisplayed("Location")
+        }
     }
 
     @Test
