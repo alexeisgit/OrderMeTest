@@ -6,14 +6,10 @@ import androidx.test.runner.AndroidJUnit4
 import com.github.tarcv.orderme.app.ui.robots.login
 import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
-import com.github.tarcv.orderme.app.ui.screens.LoginScreen
-import com.github.tarcv.orderme.app.ui.screens.RestaurantListScreen
-import com.github.tarcv.orderme.app.ui.screens.RestaurantScreen
 import com.github.tarcv.orderme.app.ui.SplashActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.lang.Thread.sleep
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -73,16 +69,18 @@ class RestaurantTest {
 
     @Test
     fun verifyRomanovRestaurantLocation() {
-        val loginScreen = LoginScreen()
-        loginScreen.loginLater()
-        sleep(2000)
+        login {
+            loginLater()
+            sleep()
+        }
 
-        val restaurantListScreen = RestaurantListScreen()
-        restaurantListScreen.selectRestaurant("Romanov")
-        sleep(2000)
+        restaurantList {
+            selectRestaurant("Romanov")
+        }
 
-        val restaurantScreen = RestaurantScreen()
-        restaurantScreen.checkIfTextIsDisplayed("Location")
+        restaurant {
+            checkIfTextIsDisplayed("Romanov")
+        }
     }
 
     @Test
