@@ -7,6 +7,7 @@ import com.github.tarcv.orderme.app.ui.robots.login
 import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
 import com.github.tarcv.orderme.app.ui.SplashActivity
+import junit.framework.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -19,6 +20,8 @@ class RestaurantTest {
     @JvmField
     var mActivityTestRule = ActivityTestRule(SplashActivity::class.java)
 
+    private val oceanSeafoodName = "Ocean Seafood"
+
     @Test
     fun verifyRestTitle() {
         login {
@@ -27,11 +30,12 @@ class RestaurantTest {
         }
 
         restaurantList {
-            selectRestaurant("Ocean Seafood")
+            selectRestaurant(oceanSeafoodName)
         }
 
         restaurant {
             checkIfTitleIsDisplayed()
+            assertEquals(oceanSeafoodName, getRestaurantTitleText())
         }
     }
 

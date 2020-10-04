@@ -5,6 +5,8 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.github.tarcv.orderme.app.R
+import com.github.tarcv.orderme.app.ui.utils.getText
+import java.util.concurrent.atomic.AtomicReference
 
 fun restaurant(restaurantFunction: RestaurantRobot.() -> Unit) =
         RestaurantRobot().apply(restaurantFunction)
@@ -24,4 +26,11 @@ class RestaurantRobot {
 
     fun checkIfImageIsDisplayed() = onView(restOceanSeafoodImage)
             .check(matches(ViewMatchers.isDisplayed()))
+
+    fun getRestaurantTitleText(): String {
+        val textReference: AtomicReference<String> = AtomicReference()
+        onView(restTitleMatcher).perform(getText(textReference))
+        val actualText = textReference.toString()
+        return actualText
+    }
 }
