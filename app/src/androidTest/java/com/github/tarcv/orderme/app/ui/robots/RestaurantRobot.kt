@@ -3,9 +3,9 @@ package com.github.tarcv.orderme.app.ui.robots
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import com.github.tarcv.orderme.app.R
 import com.github.tarcv.orderme.app.ui.utils.getText
 import java.util.concurrent.atomic.AtomicReference
@@ -16,19 +16,21 @@ fun restaurant(restaurantFunction: RestaurantRobot.() -> Unit) =
 class RestaurantRobot {
     private val restTitleMatcher = withId(R.id.restaurant_name)
     private val restOceanSeafoodImage = withId(R.id.restaurant_image_view)
+    private val detectTableMatcher = withText("Detect table")
+    private val callAWaiterMatcher = withText("Call a waiter")
     private val menuButton = "Menu"
 
     fun checkIfTitleIsDisplayed() = onView(restTitleMatcher)
-            .check(matches(ViewMatchers.isDisplayed()))
+            .check(matches(isDisplayed()))
 
-    fun checkIfTextIsDisplayed(text: String) = onView(ViewMatchers.withText(text))
-            .check(matches(ViewMatchers.isDisplayed()))
+    fun checkIfTextIsDisplayed(text: String) = onView(withText(text))
+            .check(matches(isDisplayed()))
 
-    fun checkIfButtonIsVisible(text: String) = onView(ViewMatchers.withText(text))
-            .check(matches(ViewMatchers.isDisplayed()))
+    fun checkIfButtonIsVisible(text: String) = onView(withText(text))
+            .check(matches(isDisplayed()))
 
     fun checkIfImageIsDisplayed() = onView(restOceanSeafoodImage)
-            .check(matches(ViewMatchers.isDisplayed()))
+            .check(matches(isDisplayed()))
 
     fun getRestaurantTitleText(): String {
         val textReference: AtomicReference<String> = AtomicReference()
@@ -37,6 +39,15 @@ class RestaurantRobot {
         return actualText
     }
 
+    fun tapOnDetectTable() {
+        onView(detectTableMatcher)
+                .perform(click())
+    }
+
+    fun tapOnCallAWaiter() {
+        onView(callAWaiterMatcher)
+                .perform(click())
+    }
     private fun tapButton(text: String) = onView(withText(text)).perform(click())
 
     fun tapMenu() = tapButton(menuButton)
