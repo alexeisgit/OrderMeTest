@@ -1,6 +1,7 @@
 package com.github.tarcv.orderme.app.ui.robots
 
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -13,7 +14,9 @@ class QRRobot {
     private val submitBtn = withId(R.id.submitButton)
     private val republiqueQRCode = "3_5"
 
-    private fun enterQRCode(qrCode: String) = onView(qrCodeText).perform(typeText(qrCode))
+    private fun enterQRCode(qrCode: String) = onView(qrCodeText)
+        .perform(typeText(qrCode))
+        .perform(closeSoftKeyboard())
 
     fun enterRepubliqueQRCode() = enterQRCode(republiqueQRCode)
 

@@ -7,6 +7,7 @@ import com.github.tarcv.orderme.app.ui.robots.login
 import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
 import com.github.tarcv.orderme.app.ui.SplashActivity
+import com.github.tarcv.orderme.app.ui.robots.qrScreen
 import junit.framework.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -21,6 +22,8 @@ class RestaurantTest {
     var mActivityTestRule = ActivityTestRule(SplashActivity::class.java)
 
     private val oceanSeafoodName = "Ocean Seafood"
+    private val republiqueName = "Republique"
+    private val menuOption = "Menu"
 
     @Test
     fun verifyRestTitle() {
@@ -193,6 +196,32 @@ class RestaurantTest {
         }
         restaurant {
             checkIfImageIsDisplayed()
+        }
+    }
+
+    @Test
+    fun verifyQRCodeNavigatedToMenuScreen() {
+        login {
+            loginLater()
+            sleep()
+        }
+
+        restaurantList {
+            selectRestaurant(republiqueName)
+        }
+
+        restaurant {
+            tapOnDetectTable()
+        }
+
+        qrScreen {
+            enterRepubliqueQRCode()
+            sleep()
+            tapSubmitButton()
+        }
+
+        restaurant {
+            assertEquals("Menu", menuOption)
         }
     }
 }
