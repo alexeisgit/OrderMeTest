@@ -20,6 +20,7 @@ fun restaurantList(listFunction: RestaurantListRobot.() -> Unit) =
 class RestaurantListRobot {
 
     private val restaurantRecyclerMatcher: Matcher<View> = withId(R.id.restaurantRecycler)
+    private val qrBtn = withId(R.id.searchBtn)
 
     fun selectRestaurant(name: String) {
         onView(withId(R.id.restaurantRecycler))
@@ -32,4 +33,6 @@ class RestaurantListRobot {
 
     fun checkNumberOfRestaurants(count: Int) = onView(restaurantRecyclerMatcher)
                 .check(matches(recyclerElementCount(count)))
+
+    fun tapQRBtn() = onView(qrBtn).perform(click())
 }
