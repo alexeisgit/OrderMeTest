@@ -5,16 +5,15 @@ import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.github.tarcv.orderme.app.ui.SplashActivity
 import com.github.tarcv.orderme.app.ui.robots.login
-import com.github.tarcv.orderme.app.ui.robots.menuDetail
+import com.github.tarcv.orderme.app.ui.robots.menuDetails
 import com.github.tarcv.orderme.app.ui.robots.menu
-import com.github.tarcv.orderme.app.ui.robots.qrScreen
-import com.github.tarcv.orderme.app.ui.robots.restaurantList
 import com.github.tarcv.orderme.app.ui.robots.restaurant
+import com.github.tarcv.orderme.app.ui.robots.restaurantList
+import com.github.tarcv.orderme.app.ui.robots.qrScreen
 import junit.framework.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.lang.Thread.sleep
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -51,9 +50,46 @@ class ShoppingCartTests {
             selectFish()
         }
 
-        menuDetail {
+        menuDetails {
             sleep()
             assertEquals("0.0", verifyBucketValue())
+        }
+    }
+
+    @Test
+    fun verifyShoppingCartTotal() {
+        login {
+            loginLater()
+            sleep()
+        }
+
+        restaurantList {
+            tapQRBtn()
+            sleep()
+        }
+
+        qrScreen {
+            enterRepubliqueQRCode()
+            sleep()
+            tapSubmitButton()
+        }
+
+        restaurant {
+            tapMenu()
+            sleep()
+        }
+
+        menu {
+            selectSaladsMenu()
+            sleep()
+        }
+
+        menuDetails {
+            addToCart("COLEMAN FARMS LITTLE GEMS")
+            addToCart("BLACK & WHITE SALAD")
+            addToCart("OCTOPUS")
+            sleep()
+            assertEquals(77.0, getShoppingCartValue())
         }
     }
 }

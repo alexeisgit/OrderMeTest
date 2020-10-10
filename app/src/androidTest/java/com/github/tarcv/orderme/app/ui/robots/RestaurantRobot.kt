@@ -16,9 +16,9 @@ fun restaurant(restaurantFunction: RestaurantRobot.() -> Unit) =
 class RestaurantRobot {
     private val restTitleMatcher = withId(R.id.restaurant_name)
     private val restOceanSeafoodImage = withId(R.id.restaurant_image_view)
+    private val menuMatcher = withText("Menu")
     private val detectTableMatcher = withText("Detect table")
     private val callAWaiterMatcher = withText("Call a waiter")
-    private val menuButton = "Menu"
 
     fun checkIfTitleIsDisplayed() = onView(restTitleMatcher)
             .check(matches(isDisplayed()))
@@ -39,6 +39,8 @@ class RestaurantRobot {
         return actualText
     }
 
+    fun tapMenu() = onView(menuMatcher).perform(click())
+
     fun tapOnDetectTable() {
         onView(detectTableMatcher)
                 .perform(click())
@@ -48,9 +50,6 @@ class RestaurantRobot {
         onView(callAWaiterMatcher)
                 .perform(click())
     }
-    private fun tapButton(text: String) = onView(withText(text)).perform(click())
-
-    fun tapMenu() = tapButton(menuButton)
 
     fun sleep() = Thread.sleep(2000)
 }

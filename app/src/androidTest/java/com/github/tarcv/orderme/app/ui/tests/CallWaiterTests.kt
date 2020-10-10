@@ -3,11 +3,11 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.github.tarcv.orderme.app.ui.SplashActivity
-import com.github.tarcv.orderme.app.ui.robots.detectTable
 import com.github.tarcv.orderme.app.ui.robots.login
 import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
 import com.github.tarcv.orderme.app.ui.robots.callAWaiterOptions
+import com.github.tarcv.orderme.app.ui.robots.qrScreen
 import junit.framework.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -20,8 +20,6 @@ class CallWaiterTests {
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(SplashActivity::class.java)
-
-    private val validQRCode = "3_5"
 
     @Test
     fun verifyRepubliqueBringAMenuSuccess() {
@@ -38,9 +36,10 @@ class CallWaiterTests {
             tapOnDetectTable()
         }
 
-        detectTable {
-            enterQrCode(validQRCode)
-            tapOnSubmit()
+        qrScreen {
+            enterRepubliqueQRCode()
+            sleep()
+            tapSubmitButton()
         }
 
         restaurant {
