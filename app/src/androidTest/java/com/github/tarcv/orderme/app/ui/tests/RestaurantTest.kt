@@ -15,22 +15,18 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class RestaurantTest {
+class RestaurantTest : BaseTest() {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(SplashActivity::class.java)
 
-    private val oceanSeafoodName = "Ocean Seafood"
     private val republiqueName = "Republique"
     private val menuOption = "Menu"
 
     @Test
     fun verifyRestTitle() {
-        login {
-            loginLater()
-            sleep()
-        }
+        skipLogin()
 
         restaurantList {
             selectRestaurant(oceanSeafoodName)

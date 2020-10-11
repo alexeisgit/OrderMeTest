@@ -13,15 +13,15 @@ import java.util.concurrent.atomic.AtomicReference
 fun restaurant(restaurantFunction: RestaurantRobot.() -> Unit) =
         RestaurantRobot().apply(restaurantFunction)
 
-class RestaurantRobot {
+class RestaurantRobot : BaseRobot() {
     private val restTitleMatcher = withId(R.id.restaurant_name)
     private val restOceanSeafoodImage = withId(R.id.restaurant_image_view)
     private val menuMatcher = withText("Menu")
     private val detectTableMatcher = withText("Detect table")
     private val callAWaiterMatcher = withText("Call a waiter")
+    private val phoneMatcher = withText("Phone")
 
-    fun checkIfTitleIsDisplayed() = onView(restTitleMatcher)
-            .check(matches(isDisplayed()))
+    fun checkIfTitleIsDisplayed() = isDisplayed(restTitleMatcher)
 
     fun checkIfTextIsDisplayed(text: String) = onView(withText(text))
             .check(matches(isDisplayed()))
@@ -56,5 +56,5 @@ class RestaurantRobot {
                 .perform(click())
     }
 
-    fun sleep() = Thread.sleep(2000)
+    fun tapOnPhone() = onView(phoneMatcher).perform(click())
 }

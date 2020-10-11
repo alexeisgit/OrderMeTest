@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicReference
 fun restaurantList(listFunction: RestaurantListRobot.() -> Unit) =
         RestaurantListRobot().apply(listFunction)
 
-class RestaurantListRobot {
+class RestaurantListRobot : BaseRobot() {
 
     private val searchField: Matcher<View> = withId(R.id.searchView)
     private val restaurantRecyclerMatcher: Matcher<View> = withId(R.id.restaurantRecycler)
@@ -32,8 +32,7 @@ class RestaurantListRobot {
                 .perform(actionOnItem<RecyclerView.ViewHolder>
                 (hasDescendant(withText(name)), scrollTo()))
 
-        onView(withText(name))
-                .perform(click())
+        tapBy(withText(name))
     }
 
     fun searchRestaurantName(name: String) {
@@ -42,8 +41,6 @@ class RestaurantListRobot {
 
     fun checkNumberOfRestaurants(count: Int) = onView(restaurantRecyclerMatcher)
                 .check(matches(recyclerElementCount(count)))
-
-    fun sleep() = Thread.sleep(2000)
 
     fun getRestaurantTitleText(): String {
         val textReference: AtomicReference<String> = AtomicReference()
