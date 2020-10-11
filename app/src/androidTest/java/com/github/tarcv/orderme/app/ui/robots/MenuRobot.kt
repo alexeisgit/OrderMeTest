@@ -10,16 +10,14 @@ import org.hamcrest.Matcher
 fun menu(chooseMenuFunction: MenuRobot.() -> Unit) =
         MenuRobot().apply(chooseMenuFunction)
 
-class MenuRobot {
+class MenuRobot : BaseRobot() {
 
     private val saladsAndVeggiesMenu: Matcher<View> = withText("SALADS AND VEGETABLES")
 
-    fun selectSaladsMenu() = onView(saladsAndVeggiesMenu).perform(click())
+    fun selectSaladsMenu() = tapBy(saladsAndVeggiesMenu)
 
     private fun tapButton(name: String): ViewInteraction = onView(withText(name))
             .perform(click())
 
     fun selectFish() = tapButton("FISH")
-
-    fun sleep() = Thread.sleep(2000)
 }

@@ -3,7 +3,6 @@ package com.github.tarcv.orderme.app.ui.robots
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -49,5 +48,5 @@ class RestaurantListRobot : BaseRobot() {
         return actualText
     }
 
-    fun tapQRBtn() = onView(qrBtn).perform(click())
+    fun tapQRBtn() = tapBy(qrBtn)
 }

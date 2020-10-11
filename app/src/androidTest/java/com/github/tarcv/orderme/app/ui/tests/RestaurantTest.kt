@@ -120,17 +120,14 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyLocationButtonIsVisible() {
-        login {
-            loginLater()
-            sleep()
-        }
+        skipLogin()
 
         restaurantList {
-            selectRestaurant("Ocean Seafood")
+            selectRestaurant(oceanSeafoodName)
         }
 
         restaurant {
-            checkIfTextIsDisplayed("Location")
+            checkIfLocationBtnIsDisplayed()
         }
     }
 

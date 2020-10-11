@@ -17,7 +17,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class ShoppingCartTests {
+class ShoppingCartTest : BaseTest() {
 
     @Rule
     @JvmField
@@ -58,10 +58,7 @@ class ShoppingCartTests {
 
     @Test
     fun verifyShoppingCartTotal() {
-        login {
-            loginLater()
-            sleep()
-        }
+        skipLogin()
 
         restaurantList {
             tapQRBtn()
@@ -89,7 +86,7 @@ class ShoppingCartTests {
             addToCart("BLACK & WHITE SALAD")
             addToCart("OCTOPUS")
             sleep()
-            assertEquals(77.0, getShoppingCartValue())
+            assertEquals("77.0", getShoppingCartValue())
         }
     }
 }

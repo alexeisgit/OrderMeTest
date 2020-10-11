@@ -10,14 +10,12 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import com.github.tarcv.orderme.app.R
 import com.github.tarcv.orderme.app.ui.utils.ChildViewAction
-import com.github.tarcv.orderme.app.ui.utils.getText
 import org.hamcrest.Matcher
-import java.util.concurrent.atomic.AtomicReference
 
 fun menuDetails(chooseMenuFunction: MenuDetailsRobot.() -> Unit) =
         MenuDetailsRobot().apply(chooseMenuFunction)
 
-class MenuDetailsRobot {
+class MenuDetailsRobot : BaseRobot() {
 
     private val menuRecyclerView: Matcher<View> = withId(R.id.menu_recycler)
     private val bucketValue = withId(R.id.bucket_textview)
@@ -28,19 +26,9 @@ class MenuDetailsRobot {
                 (hasDescendant(withText(itemName)), ChildViewAction(R.id.plus_button, click())))
     }
 
-    fun getShoppingCartValue(): Double {
-        var price: AtomicReference<String> = AtomicReference()
-        onView(bucketValue).perform(getText(price))
-        return price.get().toDouble()
-    }
-
-    private fun getElementText(elementMatcher: Matcher<View>): String {
-        val textReference: AtomicReference<String> = AtomicReference()
-        onView(elementMatcher).perform(getText(textReference))
-        return textReference.toString()
+    fun getShoppingCartValue(): String {
+        return getElementText(bucketValue)
     }
 
     fun verifyBucketValue() = getElementText(bucketValue)
-
-    fun sleep() = Thread.sleep(2000)
 }

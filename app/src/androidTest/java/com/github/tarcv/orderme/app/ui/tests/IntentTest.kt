@@ -31,7 +31,9 @@ class IntentTest {
     val intentsTestRule = IntentsTestRule(SplashActivity::class.java)
 
     private val republiqueName = "Republique"
+    private val burgerName = "Burger"
     private val republiguePhoneNumber = "+1 310-362-6115"
+    private val burgerPhoneNumber = "5555555"
 
     @Before
     fun blockExternalApps() {
@@ -56,6 +58,28 @@ class IntentTest {
                 allOf(
                         hasAction(equalTo(ACTION_DIAL)),
                         hasData("tel:$republiguePhoneNumber")
+                )
+        )
+    }
+
+    @Test
+    fun testOpenBurgerPhone() {
+        login {
+            loginLater()
+            sleep()
+        }
+
+        restaurantList {
+            selectRestaurant(burgerName)
+        }
+        restaurant {
+            tapOnPhone()
+        }
+
+        intended(
+                allOf(
+                        hasAction(equalTo(ACTION_DIAL)),
+                        hasData("tel:$burgerPhoneNumber")
                 )
         )
     }

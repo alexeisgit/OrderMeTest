@@ -20,17 +20,19 @@ class RestaurantRobot : BaseRobot() {
     private val detectTableMatcher = withText("Detect table")
     private val callAWaiterMatcher = withText("Call a waiter")
     private val phoneMatcher = withText("Phone")
+    private val locationMatcher = withText("Location")
 
     fun checkIfTitleIsDisplayed() = isDisplayed(restTitleMatcher)
 
-    fun checkIfTextIsDisplayed(text: String) = onView(withText(text))
-            .check(matches(isDisplayed()))
+    fun checkIfTextIsDisplayed(text: String) = isDisplayed(withText(text))
 
     fun checkIfButtonIsVisible(text: String) = onView(withText(text))
             .check(matches(isDisplayed()))
 
     fun checkIfImageIsDisplayed() = onView(restOceanSeafoodImage)
             .check(matches(isDisplayed()))
+
+    fun checkIfLocationBtnIsDisplayed() = isDisplayed(locationMatcher)
 
     fun getRestaurantTitleText(): String {
         val textReference: AtomicReference<String> = AtomicReference()
@@ -44,7 +46,7 @@ class RestaurantRobot : BaseRobot() {
                 .perform(click())
     }
 
-    fun tapMenu() = onView(menuMatcher).perform(click())
+    fun tapMenu() = tapBy(menuMatcher)
 
     fun tapOnDetectTable() {
         onView(detectTableMatcher)
