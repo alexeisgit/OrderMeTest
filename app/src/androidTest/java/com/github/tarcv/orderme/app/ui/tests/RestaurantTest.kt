@@ -3,11 +3,13 @@ package com.github.tarcv.orderme.app.ui.tests
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import com.github.tarcv.orderme.app.ui.SplashActivity
 import com.github.tarcv.orderme.app.ui.robots.login
 import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
-import com.github.tarcv.orderme.app.ui.SplashActivity
+import com.github.tarcv.orderme.app.ui.robots.menu
 import com.github.tarcv.orderme.app.ui.robots.qrScreen
+import com.github.tarcv.orderme.app.ui.robots.saladsAndVegetablesList
 import junit.framework.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -23,6 +25,14 @@ class RestaurantTest : BaseTest() {
 
     private val republiqueName = "Republique"
     private val menuOption = "Menu"
+
+    private val defaultValueOfMenuItemExpected = "0"
+
+    private val colemanFarms = "COLEMAN FARMS LITTLE GEMS"
+
+    private val blackWhiteSalad = "BLACK & WHITE SALAD"
+
+    private val octopus = "OCTOPUS"
 
     @Test
     fun verifyRestTitle() {
@@ -209,6 +219,42 @@ class RestaurantTest : BaseTest() {
 
         restaurant {
             assertEquals("Menu", menuOption)
+        }
+    }
+
+    @Test
+    fun verifyDefaultNumberOfEachMenuItem() {
+        login {
+            loginLater()
+            sleep()
+        }
+
+        restaurantList {
+            tapQRBtn()
+        }
+
+        qrScreen {
+            enterRepubliqueQRCode()
+            tapSubmitButton()
+        }
+
+        restaurant {
+            tapMenu()
+            sleep()
+        }
+
+        menu {
+            selectSaladsMenu()
+            sleep()
+        }
+
+        saladsAndVegetablesList {
+            assertEquals(defaultValueOfMenuItemExpected,
+                checkDefaultValueOfEachMenuItem(colemanFarms))
+            assertEquals(defaultValueOfMenuItemExpected,
+                checkDefaultValueOfEachMenuItem(blackWhiteSalad))
+            assertEquals(defaultValueOfMenuItemExpected,
+                checkDefaultValueOfEachMenuItem(octopus))
         }
     }
 }

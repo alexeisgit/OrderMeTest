@@ -7,8 +7,8 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.Matcher
 
-fun menu(chooseMenuFunction: MenuRobot.() -> Unit) =
-        MenuRobot().apply(chooseMenuFunction)
+fun menu(menuFunction: MenuRobot.() -> Unit) =
+        MenuRobot().apply(menuFunction)
 
 class MenuRobot : BaseRobot() {
 

@@ -15,9 +15,7 @@ class QRRobot : BaseRobot() {
     private val submitBtn = withId(R.id.submitButton)
     private val republiqueQRCode = "3_5"
 
-    private fun enterQRCode(qrCode: String) = enterText(qrCodeText, qrCode)
-
-    fun enterRepubliqueQRCode() = enterQRCode(republiqueQRCode)
+    fun enterRepubliqueQRCode() = enterText(qrCodeText, republiqueQRCode)
 
     fun tapSubmitButton() = tapBy(submitBtn)
 
