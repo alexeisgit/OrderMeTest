@@ -198,10 +198,7 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyQRCodeNavigatedToMenuScreen() {
-        login {
-            loginLater()
-            sleep()
-        }
+        skipLogin()
 
         restaurantList {
             selectRestaurant(republiqueName)

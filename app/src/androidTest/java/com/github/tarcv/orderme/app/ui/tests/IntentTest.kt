@@ -32,8 +32,9 @@ class IntentTest : BaseTest() {
     val intentsTestRule = IntentsTestRule(SplashActivity::class.java)
 
     private val republiqueName = "Republique"
-    private val burgerName = "Burger"
     private val republiguePhoneNumber = "+1 310-362-6115"
+    private val republiqueLocation = "34.064198,-118.343863"
+    private val burgerName = "Burger"
     private val burgerPhoneNumber = "5555555"
     private val oceanLocation = "34.062270,-118.239631"
 
@@ -103,6 +104,26 @@ class IntentTest : BaseTest() {
                         hasAction(equalTo(ACTION_VIEW)),
                         hasData("geo:$oceanLocation")
                 )
+        )
+    }
+
+    @Test
+    fun testRepubliqueLocation() {
+        skipLogin()
+
+        restaurantList {
+            selectRestaurant(republiqueName)
+        }
+
+        restaurant {
+            tapLocation()
+        }
+
+        intended(
+            allOf(
+                hasAction(equalTo(ACTION_VIEW)),
+                hasData("geo:$republiqueLocation")
+            )
         )
     }
 }
