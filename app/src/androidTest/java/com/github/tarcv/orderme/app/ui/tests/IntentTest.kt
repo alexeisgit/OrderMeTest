@@ -3,6 +3,7 @@ package com.github.tarcv.orderme.app.ui.tests
 import android.app.Activity.RESULT_OK
 import android.app.Instrumentation.ActivityResult
 import android.content.Intent.ACTION_DIAL
+import android.content.Intent.ACTION_VIEW
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.Intents.intending
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
@@ -25,7 +26,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class IntentTest {
+class IntentTest : BaseTest() {
 
     @get:Rule
     val intentsTestRule = IntentsTestRule(SplashActivity::class.java)
@@ -34,6 +35,7 @@ class IntentTest {
     private val burgerName = "Burger"
     private val republiguePhoneNumber = "+1 310-362-6115"
     private val burgerPhoneNumber = "5555555"
+    private val oceanLocation = "34.062270,-118.239631"
 
     @Before
     fun blockExternalApps() {
@@ -80,6 +82,26 @@ class IntentTest {
                 allOf(
                         hasAction(equalTo(ACTION_DIAL)),
                         hasData("tel:$burgerPhoneNumber")
+                )
+        )
+    }
+
+    @Test
+    fun testOceanLocation() {
+        skipLogin()
+
+        restaurantList {
+            selectRestaurant(oceanSeafoodName)
+        }
+
+        restaurant {
+            tapLocation()
+        }
+
+        intended(
+                allOf(
+                        hasAction(equalTo(ACTION_VIEW)),
+                        hasData("geo:$oceanLocation")
                 )
         )
     }

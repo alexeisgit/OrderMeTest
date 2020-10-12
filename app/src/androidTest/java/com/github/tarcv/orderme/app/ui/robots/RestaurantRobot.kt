@@ -59,4 +59,6 @@ class RestaurantRobot : BaseRobot() {
     }
 
     fun tapOnPhone() = onView(phoneMatcher).perform(click())
+
+    fun tapLocation() = tapBy(locationMatcher)
 }

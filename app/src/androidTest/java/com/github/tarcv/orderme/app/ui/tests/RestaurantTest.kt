@@ -56,13 +56,10 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyRomanovDetectTableBtn1() {
-        login {
-            loginLater()
-            sleep()
-        }
+        skipLogin()
 
         restaurantList {
-            selectRestaurant("Romanov")
+            selectRestaurant(romanovName)
         }
 
         restaurant {
@@ -104,13 +101,10 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyRomanovMenuBtn() {
-        login {
-            loginLater()
-            sleep()
-        }
+        skipLogin()
 
         restaurantList {
-            selectRestaurant("Romanov")
+            selectRestaurant(romanovName)
         }
 
         restaurant {

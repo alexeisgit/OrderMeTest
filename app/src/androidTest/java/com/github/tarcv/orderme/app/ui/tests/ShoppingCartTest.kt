@@ -4,7 +4,6 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.github.tarcv.orderme.app.ui.SplashActivity
-import com.github.tarcv.orderme.app.ui.robots.login
 import com.github.tarcv.orderme.app.ui.robots.menuDetails
 import com.github.tarcv.orderme.app.ui.robots.menu
 import com.github.tarcv.orderme.app.ui.robots.restaurant
@@ -25,10 +24,7 @@ class ShoppingCartTest : BaseTest() {
 
     @Test
     fun verifyDefaultShoppingCartValue() {
-        login {
-            loginLater()
-            sleep()
-        }
+        skipLogin()
 
         restaurantList {
             tapQRBtn()

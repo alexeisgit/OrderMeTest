@@ -12,4 +12,5 @@ open class BaseTest {
     }
 
     val oceanSeafoodName = "Ocean Seafood"
+    val romanovName = "Romanov"
 }
