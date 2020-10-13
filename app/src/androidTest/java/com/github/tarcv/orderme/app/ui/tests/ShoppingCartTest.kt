@@ -21,6 +21,7 @@ class ShoppingCartTest : BaseTest() {
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(SplashActivity::class.java)
+    private val republiqueQRCode = "3_5"
 
     @Test
     fun verifyDefaultShoppingCartValue() {
@@ -31,7 +32,7 @@ class ShoppingCartTest : BaseTest() {
         }
 
         qrScreen {
-            enterRepubliqueQRCode()
+            enterQRCode(republiqueQRCode)
             sleep()
             tapSubmitButton()
         }
@@ -62,7 +63,7 @@ class ShoppingCartTest : BaseTest() {
         }
 
         qrScreen {
-            enterRepubliqueQRCode()
+            enterQRCode(republiqueQRCode)
             sleep()
             tapSubmitButton()
         }

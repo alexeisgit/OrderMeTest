@@ -12,9 +12,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import com.github.tarcv.orderme.app.R
 import com.github.tarcv.orderme.app.ui.utils.RecyclerViewMatcher.Companion.recyclerElementCount
-import com.github.tarcv.orderme.app.ui.utils.getText
 import org.hamcrest.Matcher
-import java.util.concurrent.atomic.AtomicReference
 
 fun restaurantList(listFunction: RestaurantListRobot.() -> Unit) =
         RestaurantListRobot().apply(listFunction)
@@ -41,12 +39,7 @@ class RestaurantListRobot : BaseRobot() {
     fun checkNumberOfRestaurants(count: Int) = onView(restaurantRecyclerMatcher)
                 .check(matches(recyclerElementCount(count)))
 
-    fun getRestaurantTitleText(): String {
-        val textReference: AtomicReference<String> = AtomicReference()
-        onView(restTitleMatcher).perform(getText(textReference))
-        val actualText = textReference.toString()
-        return actualText
-    }
+    fun getRestaurantTitleText(): String = getElementText(restTitleMatcher)
 
     fun tapQRBtn() = tapBy(qrBtn)
 }

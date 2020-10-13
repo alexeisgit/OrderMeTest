@@ -4,11 +4,10 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.github.tarcv.orderme.app.ui.SplashActivity
-import com.github.tarcv.orderme.app.ui.robots.login
-import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
-import com.github.tarcv.orderme.app.ui.robots.menu
+import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.qrScreen
+import com.github.tarcv.orderme.app.ui.robots.menu
 import com.github.tarcv.orderme.app.ui.robots.saladsAndVegetablesList
 import junit.framework.Assert.assertEquals
 import org.junit.Rule
@@ -33,6 +32,8 @@ class RestaurantTest : BaseTest() {
 
     private val octopus = "OCTOPUS"
 
+    private val republiqueQRCode = "3_5"
+
     @Test
     fun verifyRestTitle() {
         skipLogin()
@@ -49,10 +50,7 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyHakkasanCallaWaiterButtonIsVisible() {
-        login {
-            loginLater()
-            sleep()
-        }
+        skipLogin()
 
         restaurantList {
             selectRestaurant("Hakkasan")
@@ -78,10 +76,7 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyRomanovRestaurantLocation() {
-        login {
-            loginLater()
-            sleep()
-        }
+        skipLogin()
 
         restaurantList {
             selectRestaurant("Romanov")
@@ -133,10 +128,7 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyHakkasanMenuButtonIsVisible() {
-        login {
-            loginLater()
-            sleep()
-        }
+        skipLogin()
 
         restaurantList {
             selectRestaurant("Hakkasan")
@@ -162,10 +154,8 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyBurgerRest() {
-        login {
-            loginLater()
-            sleep()
-        }
+        skipLogin()
+
         restaurantList {
             selectRestaurant("Burger")
         }
@@ -177,10 +167,8 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyRestImageIsVisible() {
-        login {
-            loginLater()
-            sleep()
-        }
+        skipLogin()
+
         restaurantList {
             selectRestaurant("Ocean Seafood")
         }
@@ -202,7 +190,7 @@ class RestaurantTest : BaseTest() {
         }
 
         qrScreen {
-            enterRepubliqueQRCode()
+            enterQRCode(republiqueQRCode)
             sleep()
             tapSubmitButton()
         }
@@ -214,17 +202,14 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyDefaultNumberOfEachMenuItem() {
-        login {
-            loginLater()
-            sleep()
-        }
+        skipLogin()
 
         restaurantList {
             tapQRBtn()
         }
 
         qrScreen {
-            enterRepubliqueQRCode()
+            enterQRCode(republiqueQRCode)
             tapSubmitButton()
         }
 

@@ -7,8 +7,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import com.github.tarcv.orderme.app.R
-import com.github.tarcv.orderme.app.ui.utils.getText
-import java.util.concurrent.atomic.AtomicReference
 
 fun restaurant(restaurantFunction: RestaurantRobot.() -> Unit) =
         RestaurantRobot().apply(restaurantFunction)
@@ -34,17 +32,7 @@ class RestaurantRobot : BaseRobot() {
 
     fun checkIfLocationBtnIsDisplayed() = isDisplayed(locationMatcher)
 
-    fun getRestaurantTitleText(): String {
-        val textReference: AtomicReference<String> = AtomicReference()
-        onView(restTitleMatcher).perform(getText(textReference))
-        val actualText = textReference.toString()
-        return actualText
-    }
-
-    fun selectButton(text: String) {
-        onView(withText(text))
-                .perform(click())
-    }
+    fun getRestaurantTitleText(): String = getElementText(restTitleMatcher)
 
     fun tapMenu() = tapBy(menuMatcher)
 

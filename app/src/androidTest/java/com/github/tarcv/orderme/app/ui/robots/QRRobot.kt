@@ -9,9 +9,9 @@ fun qrScreen(qrFunction: QRRobot.() -> Unit) = QRRobot().apply { qrFunction() }
 class QRRobot : BaseRobot() {
     private val qrCodeText = withId(R.id.qrCodeText)
     private val submitBtn = withId(R.id.submitButton)
-    private val republiqueQRCode = "3_5"
+    private val qrCodeTextField = withId(R.id.qrCodeText)
 
-    fun enterRepubliqueQRCode() = enterText(qrCodeText, republiqueQRCode)
+    fun enterQRCode(qrCode: String) = enterText(qrCodeText, qrCode)
 
     fun tapSubmitButton() = tapBy(submitBtn)
 

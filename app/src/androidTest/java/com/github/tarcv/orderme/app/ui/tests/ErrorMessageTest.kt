@@ -4,10 +4,10 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.github.tarcv.orderme.app.ui.SplashActivity
+import com.github.tarcv.orderme.app.ui.robots.popUpMessage
+import com.github.tarcv.orderme.app.ui.robots.qrScreen
 import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
-import com.github.tarcv.orderme.app.ui.robots.callAWaiterOptions
-import com.github.tarcv.orderme.app.ui.robots.qrScreen
 import junit.framework.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -15,42 +15,44 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class CallWaiterTest : BaseTest() {
+class ErrorMessageTest : BaseTest() {
 
     @Rule
     @JvmField
-
     var mActivityTestRule = ActivityTestRule(SplashActivity::class.java)
-    private val republiqueQRCode = "3_5"
+
+    private val wrongQrErrMsgTxt: String = "QR Code is not compatible with OrderMe " +
+            "(not a place code?)"
+    private var correctQR: String = "3_5"
+    private var wrongQR: String = "35"
 
     @Test
-    fun verifyRepubliqueBringAMenuSuccess() {
+    fun verifyCorrectErrorIsDisplayed() {
         skipLogin()
 
         restaurantList {
-            selectRestaurant(republiqueName)
-        }
-
-        restaurant {
-            tapOnDetectTable()
+            tapQRBtn()
         }
 
         qrScreen {
-            enterQRCode(republiqueQRCode)
-            sleep()
+            enterQRCode(correctQR)
             tapSubmitButton()
         }
 
         restaurant {
-            tapOnCallAWaiter()
+            checkIfTitleIsDisplayed()
+            checkIfTextIsDisplayed(republiqueName)
+            tapOnDetectTable()
         }
 
-        callAWaiterOptions {
-            tapOnBringAMenu()
-            sleep()
-            assertEquals("Alert title is incorrect", "Success!", getAlertTitleText())
-            assertEquals("Alert message is incorrect", "Waiter is on his way",
-                    getAlertMessageText())
+        qrScreen {
+            enterQRCode(wrongQR)
+            tapSubmitButton()
+        }
+
+        popUpMessage {
+            errorMessageIsDisplayed()
+            assertEquals(wrongQrErrMsgTxt, getWrongQrErrorMessageText())
         }
     }
 }

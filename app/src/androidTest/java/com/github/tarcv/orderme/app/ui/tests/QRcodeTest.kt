@@ -28,7 +28,7 @@ class QRcodeTest : BaseTest() {
         }
 
         restaurant {
-            selectButton("Detect table")
+            tapOnDetectTable()
         }
 
         qrScreen {
