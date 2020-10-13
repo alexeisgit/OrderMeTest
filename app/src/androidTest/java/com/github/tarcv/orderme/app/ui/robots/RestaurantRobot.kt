@@ -48,15 +48,9 @@ class RestaurantRobot : BaseRobot() {
 
     fun tapMenu() = tapBy(menuMatcher)
 
-    fun tapOnDetectTable() {
-        onView(detectTableMatcher)
-                .perform(click())
-    }
+    fun tapOnDetectTable() = tapBy(detectTableMatcher)
 
-    fun tapOnCallAWaiter() {
-        onView(callAWaiterMatcher)
-                .perform(click())
-    }
+    fun tapOnCallAWaiter() = tapBy(callAWaiterMatcher)
 
     fun tapOnPhone() = onView(phoneMatcher).perform(click())
 

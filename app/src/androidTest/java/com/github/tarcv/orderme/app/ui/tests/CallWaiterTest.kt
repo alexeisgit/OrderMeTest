@@ -1,9 +1,9 @@
 package com.github.tarcv.orderme.app.ui.tests
+
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.github.tarcv.orderme.app.ui.SplashActivity
-import com.github.tarcv.orderme.app.ui.robots.login
 import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
 import com.github.tarcv.orderme.app.ui.robots.callAWaiterOptions
@@ -15,7 +15,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class CallWaiterTest {
+class CallWaiterTest : BaseTest() {
 
     @Rule
     @JvmField
@@ -23,13 +23,10 @@ class CallWaiterTest {
 
     @Test
     fun verifyRepubliqueBringAMenuSuccess() {
-        login {
-            loginLater()
-            sleep()
-        }
+        skipLogin()
 
         restaurantList {
-            selectRestaurant("Republique")
+            selectRestaurant(republiqueName)
         }
 
         restaurant {

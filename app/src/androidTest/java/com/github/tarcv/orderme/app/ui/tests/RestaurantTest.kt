@@ -23,7 +23,6 @@ class RestaurantTest : BaseTest() {
     @JvmField
     var mActivityTestRule = ActivityTestRule(SplashActivity::class.java)
 
-    private val republiqueName = "Republique"
     private val menuOption = "Menu"
 
     private val defaultValueOfMenuItemExpected = "0"
@@ -153,13 +152,10 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyHakkasanReservationBtn() {
-        login {
-            loginLater()
-            sleep()
-        }
+        skipLogin()
 
         restaurantList {
-            selectRestaurant("Hakkasan")
+            selectRestaurant(hakkasanName)
         }
 
         restaurant {
