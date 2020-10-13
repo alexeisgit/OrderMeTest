@@ -94,13 +94,10 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyBeautyEssexPhoneButton() {
-        login {
-            loginLater()
-            sleep()
-        }
+        skipLogin()
 
         restaurantList {
-            selectRestaurant("Beauty & Essex")
+            selectRestaurant(beautyEssexName)
         }
 
         restaurant {

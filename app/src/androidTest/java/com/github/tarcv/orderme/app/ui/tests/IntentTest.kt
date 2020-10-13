@@ -35,6 +35,7 @@ class IntentTest : BaseTest() {
     private val republiguePhoneNumber = "+1 310-362-6115"
     private val republiqueLocation = "34.064198,-118.343863"
     private val burgerPhoneNumber = "5555555"
+    private val beautyEssexPhoneNumber = "+1 323 676-8880"
     private val hakkasanPhoneNumber = "+1 415-829-8148"
     private val oceanLocation = "34.062270,-118.239631"
 
@@ -83,6 +84,25 @@ class IntentTest : BaseTest() {
                 allOf(
                         hasAction(equalTo(ACTION_DIAL)),
                         hasData("tel:$burgerPhoneNumber")
+                )
+        )
+    }
+
+    @Test
+    fun testOpenBeautyEssexPhone() {
+        skipLogin()
+
+        restaurantList {
+            selectRestaurant(beautyEssexName)
+        }
+        restaurant {
+            tapOnPhone()
+        }
+
+        intended(
+                allOf(
+                        hasAction(equalTo(ACTION_DIAL)),
+                        hasData("tel:$beautyEssexPhoneNumber")
                 )
         )
     }
