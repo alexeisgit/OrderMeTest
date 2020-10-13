@@ -31,13 +31,13 @@ class IntentTest : BaseTest() {
     @get:Rule
     val intentsTestRule = IntentsTestRule(SplashActivity::class.java)
 
-    private val burgerName = "Burger"
     private val republiguePhoneNumber = "+1 310-362-6115"
     private val republiqueLocation = "34.064198,-118.343863"
     private val burgerPhoneNumber = "5555555"
     private val beautyEssexPhoneNumber = "+1 323 676-8880"
     private val hakkasanPhoneNumber = "+1 415-829-8148"
     private val oceanLocation = "34.062270,-118.239631"
+    private val oceanSeafoodPhoneNumber = "+1 213-687-3088"
 
     @Before
     fun blockExternalApps() {
@@ -124,43 +124,61 @@ class IntentTest : BaseTest() {
                     )
             )
         }
+    }
 
-        @Test
-        fun testOceanLocation() {
-            skipLogin()
+    @Test
+    fun testOceanLocation() {
+        skipLogin()
 
-            restaurantList {
-                selectRestaurant(oceanSeafoodName)
-            }
-
-            restaurant {
+        restaurantList {
+            selectRestaurant(oceanSeafoodName)
+        }
+        restaurant {
                 tapLocation()
-            }
+        }
 
-            intended(
-                    allOf(
-                            hasAction(equalTo(ACTION_VIEW)),
-                            hasData("geo:$oceanLocation")
-                    )
+        intended(
+                allOf(
+                        hasAction(equalTo(ACTION_VIEW)),
+                        hasData("geo:$oceanLocation")
+                )
             )
         }
 
-        @Test
-        fun testRepubliqueLocation() {
-            skipLogin()
+    @Test
+    fun testRepubliqueLocation() {
+        skipLogin()
 
-            restaurantList {
-                selectRestaurant(republiqueName)
-            }
+        restaurantList {
+            selectRestaurant(republiqueName)
+        }
 
-            restaurant {
-                tapLocation()
-            }
+        restaurant {
+            tapLocation()
+        }
+
+        intended(
+                allOf(
+                        hasAction(equalTo(ACTION_VIEW)),
+                        hasData("geo:$republiqueLocation")
+                )
+        )
+        }
+
+    @Test
+    fun testOpenSeafoodPhoneNumber() {
+        skipLogin()
+
+        restaurantList {
+            selectRestaurant(oceanSeafoodName)
+        }
+        restaurant {
+            tapOnPhone()
 
             intended(
                     allOf(
-                            hasAction(equalTo(ACTION_VIEW)),
-                            hasData("geo:$republiqueLocation")
+                            hasAction(equalTo(ACTION_DIAL)),
+                            hasData("tel:$oceanSeafoodPhoneNumber")
                     )
             )
         }

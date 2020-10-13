@@ -16,4 +16,5 @@ open class BaseTest {
     val hakkasanName = "Hakkasan"
     val republiqueName = "Republique"
     val romanovName = "Romanov"
+    val burgerName = "Burger"
 }
