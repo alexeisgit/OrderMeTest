@@ -38,6 +38,7 @@ class IntentTest : BaseTest() {
     private val hakkasanPhoneNumber = "+1 415-829-8148"
     private val oceanLocation = "34.062270,-118.239631"
     private val oceanSeafoodPhoneNumber = "+1 213-687-3088"
+    private val burgerLocation = "12.3123,23.1312"
 
     @Before
     fun blockExternalApps() {
@@ -182,5 +183,21 @@ class IntentTest : BaseTest() {
                     )
             )
         }
+    }
+    @Test
+    fun testBurgerLocation() {
+        skipLogin()
+        restaurantList {
+            selectRestaurant(burgerName)
+        }
+        restaurant {
+            tapLocation()
+        }
+        intended(
+                allOf(
+                        hasAction(equalTo(ACTION_VIEW)),
+                        hasData("geo:$burgerLocation")
+                )
+        )
     }
 }
