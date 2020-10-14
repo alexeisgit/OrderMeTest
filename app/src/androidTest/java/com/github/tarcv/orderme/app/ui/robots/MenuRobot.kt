@@ -1,9 +1,6 @@
 package com.github.tarcv.orderme.app.ui.robots
 
 import android.view.View
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.ViewInteraction
-import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.Matcher
 
@@ -13,11 +10,8 @@ fun menu(menuFunction: MenuRobot.() -> Unit) =
 class MenuRobot : BaseRobot() {
 
     private val saladsAndVeggiesMenu: Matcher<View> = withText("SALADS AND VEGETABLES")
+    private val fishMenu: Matcher<View> = withText("FISH")
 
     fun selectSaladsMenu() = tapBy(saladsAndVeggiesMenu)
-
-    private fun tapButton(name: String): ViewInteraction = onView(withText(name))
-            .perform(click())
-
-    fun selectFish() = tapButton("FISH")
+    fun selectFish() = tapBy(fishMenu)
 }
