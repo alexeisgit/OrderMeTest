@@ -7,6 +7,8 @@ fun login(loginFunction: LoginRobot.() -> Unit) = LoginRobot().apply { loginFunc
 
 class LoginRobot : BaseRobot() {
     private val loginLaterButton = withId(R.id.login_later_button)
+    private val loginFacebookButton = withId(R.id.login_button)
 
     fun loginLater() = tapBy(loginLaterButton)
+    fun tapLoginButton() = tapBy(loginFacebookButton)
 }
