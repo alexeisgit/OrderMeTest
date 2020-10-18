@@ -32,6 +32,8 @@ class RestaurantListRobot : BaseRobot() {
         tapBy(withText(name))
     }
 
+    fun isListDisplayed() = isDisplayed(restaurantRecyclerMatcher)
+
     fun searchRestaurantName(name: String) {
         onView(searchField).perform(typeText(name))
     }

@@ -26,14 +26,19 @@ open class BaseTest {
     }
 
     fun loginWithFacebook() {
+        login {
+            tapLoginButton()
+            sleep(10000)
+        }
+
         facebookLogin {
             login()
-            sleep(6000)
+            sleep(7000)
         }
 
         facebookContinueLogin {
             tapOnContinueButton()
-            sleep(6000)
+            sleep(7000)
         }
     }
 
