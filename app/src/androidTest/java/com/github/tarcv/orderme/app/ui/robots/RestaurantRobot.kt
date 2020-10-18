@@ -19,6 +19,7 @@ class RestaurantRobot : BaseRobot() {
     private val callAWaiterMatcher = withText("Call a waiter")
     private val phoneMatcher = withText("Phone")
     private val locationMatcher = withText("Location")
+    private val reservationMatcher = withText("Reservation")
 
     fun checkIfTitleIsDisplayed() = isDisplayed(restTitleMatcher)
 
@@ -43,4 +44,6 @@ class RestaurantRobot : BaseRobot() {
     fun tapOnPhone() = onView(phoneMatcher).perform(click())
 
     fun tapLocation() = tapBy(locationMatcher)
+
+    fun tapReservation() = tapBy(reservationMatcher)
 }

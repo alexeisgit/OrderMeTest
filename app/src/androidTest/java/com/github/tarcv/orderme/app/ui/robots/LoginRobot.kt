@@ -10,5 +10,6 @@ class LoginRobot : BaseRobot() {
     private val loginFacebookButton = withId(R.id.login_button)
 
     fun loginLater() = tapBy(loginLaterButton)
+
     fun tapLoginButton() = tapBy(loginFacebookButton)
 }
