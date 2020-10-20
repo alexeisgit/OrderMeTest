@@ -19,6 +19,7 @@ class MenuDetailsRobot : BaseRobot() {
 
     private val menuRecyclerView: Matcher<View> = withId(R.id.menu_recycler)
     private val bucketValue = withId(R.id.bucket_textview)
+    private val shoppingCartMatcher: Matcher<View> = withId(R.id.bucket_button)
 
     fun addToCart(itemName: String) {
         onView(menuRecyclerView)
@@ -31,4 +32,6 @@ class MenuDetailsRobot : BaseRobot() {
     }
 
     fun verifyBucketValue() = getElementText(bucketValue)
+
+    fun openShoppingCart() = tapBy(shoppingCartMatcher)
 }

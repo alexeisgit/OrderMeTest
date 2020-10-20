@@ -44,7 +44,7 @@ class ShoppingCartTest : BaseTest() {
 
         menu {
             sleep()
-            selectFish()
+            selectFishMenu()
         }
 
         menuDetails {

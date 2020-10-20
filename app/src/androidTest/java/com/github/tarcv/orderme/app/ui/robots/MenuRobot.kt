@@ -11,7 +11,9 @@ class MenuRobot : BaseRobot() {
 
     private val saladsAndVeggiesMenu: Matcher<View> = withText("SALADS AND VEGETABLES")
     private val fishMenu: Matcher<View> = withText("FISH")
+    private val pastaMenu: Matcher<View> = withText("PASTA")
 
     fun selectSaladsMenu() = tapBy(saladsAndVeggiesMenu)
-    fun selectFish() = tapBy(fishMenu)
+    fun selectFishMenu() = tapBy(fishMenu)
+    fun selectPastaMenu() = tapBy(pastaMenu)
 }

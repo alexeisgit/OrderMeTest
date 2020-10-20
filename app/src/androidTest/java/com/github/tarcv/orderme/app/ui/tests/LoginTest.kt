@@ -19,7 +19,6 @@ class LoginTest : BaseTest() {
 
     @Test
     fun verifyLoginWithFacebook() {
-
         loginWithFacebook()
 
         restaurantList {

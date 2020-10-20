@@ -8,6 +8,8 @@ import com.github.tarcv.orderme.app.ui.robots.login
 import com.github.tarcv.orderme.app.ui.utils.DateUtill
 import com.github.tarcv.orderme.app.ui.robots.facebookContinueLogin
 import org.junit.After
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 open class BaseTest {
     @After
@@ -35,19 +37,23 @@ open class BaseTest {
     fun loginWithFacebook() {
         login {
             tapLoginButton()
-            sleep(10000)
+            sleep(5000)
         }
 
         facebookLogin {
             login()
-            sleep(7000)
+            sleep(5000)
         }
 
         facebookContinueLogin {
             tapOnContinueButton()
-            sleep(10000)
+            sleep(5000)
         }
     }
+
+    fun getCurrentDate() = SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().time)
+
+    fun getCurrentTime() = SimpleDateFormat("HH:mm").format(Calendar.getInstance().time)
 
     val oceanSeafoodName = "Ocean Seafood"
     val beautyEssexName = "Beauty & Essex"

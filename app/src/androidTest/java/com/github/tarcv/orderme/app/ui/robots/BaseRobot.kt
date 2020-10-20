@@ -9,9 +9,9 @@ import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions.scrollToPosition
 import androidx.test.espresso.contrib.PickerActions.setDate
 import androidx.test.espresso.contrib.PickerActions.setTime
-import androidx.test.espresso.contrib.RecyclerViewActions.scrollToPosition
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -36,7 +36,7 @@ open class BaseRobot {
 
     fun tapBy(matcher: Matcher<View>) = onView(matcher).perform(click())
 
-    fun isDisplayed(matcher: Matcher<View>) = onView(matcher).check(matches(isDisplayed()))
+    fun displayed(matcher: Matcher<View>) = onView(matcher).check(matches(isDisplayed()))
 
     fun enterText(matcher: Matcher<View>, text: String) = onView(matcher)
             .perform(typeText(text))
@@ -56,17 +56,6 @@ open class BaseRobot {
             onView(isAssignableFrom(TimePicker::class.java))
                     .perform(setTime(hour, min))
 
-    fun getRecyclerViewItemsCount(elementMatcher: Matcher<View>): Int {
-        val itemCount: AtomicReference<Int> = AtomicReference()
-        onView(elementMatcher).perform(getItemCount(itemCount))
-        return itemCount.toString().toInt()
-    }
-
-    fun scrollToLastItemOfRecyclerView(recylerViewMatcher: Matcher<View>) =
-            onView(recylerViewMatcher)
-                    .perform(scrollToPosition<RecyclerView.ViewHolder>
-                    (getRecyclerViewItemsCount(recylerViewMatcher) - 1))
-
     fun typeInWebElementById(locator: String, text: String) = onWebView()
             .withElement(findElement(ID, locator))
             .perform(webKeys(text))
@@ -74,4 +63,15 @@ open class BaseRobot {
     fun tapOnWebElementByName(locator: String) = onWebView()
             .withElement(findElement(NAME, locator))
             .perform(webClick())
+
+    fun getRecyclerViewItemsCount(elementMatcher: Matcher<View>): Int {
+        val itemCount: AtomicReference<Int> = AtomicReference()
+        onView(elementMatcher).perform(getItemCount(itemCount))
+        return itemCount.toString().toInt()
+    }
+
+    fun scrollToLastItemOfRecyclerView(recylerViewMatcher: Matcher<View>) =
+        onView(recylerViewMatcher)
+            .perform(scrollToPosition<RecyclerView.ViewHolder>
+            (getRecyclerViewItemsCount(recylerViewMatcher) - 1))
 }

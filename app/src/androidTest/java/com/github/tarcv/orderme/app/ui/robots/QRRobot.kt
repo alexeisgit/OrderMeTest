@@ -17,5 +17,5 @@ class QRRobot : BaseRobot() {
 
     fun tapOnEnterQRcodeButton(text: String) = tapBy(withText(text))
 
-    fun checkIfErrorMessageIsVisible(text: String) = isDisplayed(withText(text))
+    fun checkIfErrorMessageIsVisible(text: String) = displayed(withText(text))
 }

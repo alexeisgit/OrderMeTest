@@ -4,6 +4,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.github.tarcv.orderme.app.ui.SplashActivity
+import com.github.tarcv.orderme.app.ui.robots.login
 import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
 import com.github.tarcv.orderme.app.ui.robots.reservationsList
@@ -29,8 +30,10 @@ class RestaurantReservationTest : BaseTest() {
 
     @Test
     fun verifyReservationFlowForFiveDays() {
-
-        loginWithFacebook()
+        login {
+            loginWithFacebook()
+            sleep()
+        }
 
         restaurantList {
             tapQRBtn()

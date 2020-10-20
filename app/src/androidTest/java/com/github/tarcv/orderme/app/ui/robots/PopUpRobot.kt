@@ -12,10 +12,13 @@ class PopUpRobot : BaseRobot() {
     private val alertOkButtonMatcher = withText("OK")
     private val wrongQrErrMsg = withText("QR Code is not compatible " +
             "with OrderMe (not a place code?)")
+    private val successOrderMsg = withText("Your order is accepted!")
 
     fun getWrongQrErrorMessageText(): String = getElementText(wrongQrErrMsg)
 
-    fun errorMessageIsDisplayed() = isDisplayed(wrongQrErrMsg)
+    fun errorMessageIsDisplayed() = displayed(wrongQrErrMsg)
+
+    fun orderSuccessMessageIsDisplayed() = displayed(successOrderMsg)
 
     fun getAlertTitleText(): String = getElementText(alertTitleMatcher)
 

@@ -21,9 +21,9 @@ class RestaurantRobot : BaseRobot() {
     private val locationMatcher = withText("Location")
     private val reservationMatcher = withText("Reservation")
 
-    fun checkIfTitleIsDisplayed() = isDisplayed(restTitleMatcher)
+    fun checkIfTitleIsDisplayed() = displayed(restTitleMatcher)
 
-    fun checkIfTextIsDisplayed(text: String) = isDisplayed(withText(text))
+    fun checkIfTextIsDisplayed(text: String) = displayed(withText(text))
 
     fun checkIfButtonIsVisible(text: String) = onView(withText(text))
             .check(matches(isDisplayed()))
@@ -31,7 +31,7 @@ class RestaurantRobot : BaseRobot() {
     fun checkIfImageIsDisplayed() = onView(restOceanSeafoodImage)
             .check(matches(isDisplayed()))
 
-    fun checkIfLocationBtnIsDisplayed() = isDisplayed(locationMatcher)
+    fun checkIfLocationBtnIsDisplayed() = displayed(locationMatcher)
 
     fun getRestaurantTitleText(): String = getElementText(restTitleMatcher)
 
