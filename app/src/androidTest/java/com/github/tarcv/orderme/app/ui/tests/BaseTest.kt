@@ -31,7 +31,10 @@ open class BaseTest {
 
     fun getExpectedReservationDate(daysToAdd: Int): String {
         val date = DateUtill.calculateDateFromToday(daysToAdd)
-        return "${date.third}-${date.second}-${date.first}"
+        var month = if (date.second >= 10) "${date.second}" else "0${date.second}"
+        var day = if (date.first >= 10) "${date.first}" else "0${date.first}"
+        var year = date.third
+        return "$year-$month-$day"
     }
 
     fun loginWithFacebook() {
