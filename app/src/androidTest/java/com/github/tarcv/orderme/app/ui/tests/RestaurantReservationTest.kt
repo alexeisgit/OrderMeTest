@@ -27,6 +27,7 @@ class RestaurantReservationTest : BaseTest() {
     private val phoneNumber = "04358889067"
     private val numberOfPeople = "3"
     private val numberOfDays = 5
+    private val numberOfDaysFlow14DaysTest = 14
     private val reservationTime = "21:30"
 
     @Test
@@ -77,6 +78,55 @@ class RestaurantReservationTest : BaseTest() {
             scrollToLastReservationItem()
             checkReservationsDetail(republiqueName)
             checkReservationsDetail(getExpectedReservationDate(numberOfDays))
+            checkReservationsDetail(reservationTime)
+        }
+    }
+
+    @Test
+    fun verifyReservationFlowFor14Days() {
+        loginWithFacebook()
+
+        restaurantList {
+            tapQRBtn()
+        }
+
+        qrScreen {
+            enterQRCode(republiqueQRCode)
+            tapSubmitButton()
+            sleep()
+        }
+
+        restaurant {
+            tapReservation()
+        }
+
+        reservation {
+            sleep()
+            enterPhoneNumber(phoneNumber)
+            enternumberOfPeople(numberOfPeople)
+            selectReservationDate(numberOfDaysFlow14DaysTest)
+            selectReservationTime(reservationTime)
+            tapOnBookButton()
+        }
+
+        popUpMessage {
+            sleep()
+            assertEquals("Alert title is incorrect", "Success!", getAlertTitleText())
+            assertEquals("Alert message is incorrect", "Your reservation was made",
+                    getAlertMessageText())
+            tapAlertOkButton()
+        }
+
+        reservation {
+            tapReservationsTab()
+            sleep()
+        }
+
+        reservationsList {
+            tapOnFutureReservationsTab()
+            scrollToLastReservationItem()
+            checkReservationsDetail(republiqueName)
+            checkReservationsDetail(getExpectedReservationDate(numberOfDaysFlow14DaysTest))
             checkReservationsDetail(reservationTime)
         }
     }
