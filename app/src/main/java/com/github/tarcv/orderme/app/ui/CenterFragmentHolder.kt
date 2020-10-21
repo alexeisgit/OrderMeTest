@@ -153,6 +153,7 @@ class CenterFragmentHolder : LifecycleLogFragment(), OnRestaurantClickListener,
     }
 
     override fun callWaiter(place: Place, table: Int) {
+        Utils.countingIdlingResource.increment()
         val created = Utils.getFullDate(Calendar.getInstance().timeInMillis)
         val builder = AlertDialog.Builder(context)
         builder.setTitle(R.string.reason_dialog_tittle)
@@ -161,6 +162,7 @@ class CenterFragmentHolder : LifecycleLogFragment(), OnRestaurantClickListener,
                 })
                 .create()
                 .show()
+        Utils.countingIdlingResource.decrement()
     }
 
     override fun onPhoneClicked(place: Place) {
@@ -201,6 +203,7 @@ class CenterFragmentHolder : LifecycleLogFragment(), OnRestaurantClickListener,
     }
 
     fun callAWaiterRequest(placeId: Int, tableId: Int, created: String, reason: Int) {
+        Utils.countingIdlingResource.increment()
         apiClient.callWaiter(CallWaiterRequest(placeId, tableId, created, reason))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -216,6 +219,7 @@ class CenterFragmentHolder : LifecycleLogFragment(), OnRestaurantClickListener,
                 .setPositiveButton(R.string.ok, { dialogInterface, i -> dialogInterface.cancel() })
                 .create()
                 .show()
+        Utils.countingIdlingResource.decrement()
     }
 
     private fun onError(throwable: Throwable) {
@@ -227,6 +231,7 @@ class CenterFragmentHolder : LifecycleLogFragment(), OnRestaurantClickListener,
                 .setNegativeButton(R.string.ok) { dialog, _ -> dialog.cancel() }
                 .create()
                 .show()
+        Utils.countingIdlingResource.decrement()
     }
 
     override fun onReservationMade() {

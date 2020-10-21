@@ -1,5 +1,6 @@
 package com.github.tarcv.orderme.app
 
+import androidx.test.espresso.idling.CountingIdlingResource
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -36,4 +37,6 @@ object Utils {
     fun getTimeFromFullDate(date: String): String {
         return date.substring(11, 16)
     }
+
+    val countingIdlingResource = CountingIdlingResource("CountingIdlingResource")
 }
