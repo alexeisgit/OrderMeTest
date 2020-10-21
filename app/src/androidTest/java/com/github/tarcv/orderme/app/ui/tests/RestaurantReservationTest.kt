@@ -27,6 +27,7 @@ class RestaurantReservationTest : BaseTest() {
     private val phoneNumber = "04358889067"
     private val numberOfPeople = "3"
     private val numberOfDays = 5
+    private val reservationTime = "21:30"
 
     @Test
     fun verifyReservationFlowForFiveDays() {

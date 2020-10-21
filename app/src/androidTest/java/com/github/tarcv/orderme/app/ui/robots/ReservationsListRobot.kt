@@ -13,6 +13,7 @@ fun reservationsList(ReservationsListFunction: ReservationsListRobot.() -> Unit)
         ReservationsListRobot().apply { ReservationsListFunction() }
 
 class ReservationsListRobot : BaseRobot() {
+
     private val futureReservationsTabMatcher = withText("Future reservations")
     private val reservationsRecyclerMatcher = withId(R.id.reservation_recycler)
 

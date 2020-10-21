@@ -64,5 +64,4 @@ open class BaseTest {
     val republiqueName = "Republique"
     val romanovName = "Romanov"
     val burgerName = "Burger"
-    val reservationTime = "21:30"
 }
