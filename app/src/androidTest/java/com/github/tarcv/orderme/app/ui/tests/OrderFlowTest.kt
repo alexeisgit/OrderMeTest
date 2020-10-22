@@ -28,12 +28,13 @@ class OrderFlowTest : BaseTest() {
     private val bucatiniPasta = "BUCATINI"
     private val englishPeaPasta = "ENGLISH PEA AGNOLOTTI"
     private val mafaldinePasta = "MAFALDINE"
+    private val expectedTotal = "$91.0"
+    private val expectedTotal2 = "$77.0"
     private val cookRanchPigsFeet = "COOK RANCH PIG'S FEET"
     private val sonomaDuckBreast = "SONOMA DUCK BREAST"
     private val beefShortRib = "BEEF SHORT RIB"
     private val primeBeefFilet = "PRIME BEEF FILET"
     private val tournedosRossini = "TOURNEDOS ROSSINI"
-    val expectedTotal = "$91.0"
     val expectedTotalForMeatMenu = "$226.0"
 
     @Test
@@ -94,6 +95,73 @@ class OrderFlowTest : BaseTest() {
         ordersList {
             sleep()
             isOrderDisplayed(republiqueName, expectedOrderDate, expectedOrderTime, expectedTotal)
+        }
+    }
+
+    @Test
+    fun verifyOrderFlowWithSaladsAndVegetables() {
+
+        login {
+            loginWithFacebook()
+            sleep()
+        }
+
+        restaurantList {
+            tapQRBtn()
+            sleep()
+        }
+
+        qrScreen {
+            enterQRCode(republiqueQRCode)
+            tapSubmitButton()
+            sleep()
+        }
+
+        restaurant {
+            tapMenu()
+            sleep()
+        }
+
+        menu {
+            selectSaladsMenu()
+            sleep()
+        }
+
+        menuDetails {
+            addToCart("COLEMAN FARMS LITTLE GEMS")
+            addToCart("BLACK & WHITE SALAD")
+            addToCart("OCTOPUS")
+            sleep()
+            openShoppingCart()
+            sleep()
+        }
+
+        shoppingCart {
+            inputAddress()
+            selectAccept()
+        }
+
+        val expectedOrderTime = getCurrentTime()
+        val expectedOderDate = getCurrentDate()
+
+        popUpMessage {
+            sleep()
+            orderSuccessMessageIsDisplayed()
+            tapAlertOkButton()
+        }
+
+        bottomNav {
+            sleep()
+            tapOrdersTab()
+        }
+
+        ordersList {
+            sleep()
+            isOrderDisplayed(
+                    republiqueName,
+                    expectedOderDate,
+                    expectedOrderTime,
+                    expectedTotal2)
         }
     }
 

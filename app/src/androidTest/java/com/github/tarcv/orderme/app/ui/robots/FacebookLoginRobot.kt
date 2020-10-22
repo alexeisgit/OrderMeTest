@@ -5,8 +5,8 @@ fun facebookLogin(facebookLoginFunction: FacebookLoginRobot.() -> Unit) = Facebo
 
 class FacebookLoginRobot : BaseRobot() {
 
-    private val email = "oahuteam@yahoo.com"
-    private val password = "temptemp123"
+    private val email = "gfit2405@gmail.com"
+    private val password = "Test@123"
     private val passwordFieldId = "m_login_password"
     private val emailFieldId = "m_login_email"
     private val loginButtonName = "login"
