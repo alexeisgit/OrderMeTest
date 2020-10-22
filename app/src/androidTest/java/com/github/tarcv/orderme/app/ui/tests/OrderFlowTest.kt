@@ -24,12 +24,17 @@ class OrderFlowTest : BaseTest() {
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(SplashActivity::class.java)
-
     private val republiqueQRCode = "3_5"
     private val bucatiniPasta = "BUCATINI"
     private val englishPeaPasta = "ENGLISH PEA AGNOLOTTI"
     private val mafaldinePasta = "MAFALDINE"
+    private val cookRanchPigsFeet = "COOK RANCH PIG'S FEET"
+    private val sonomaDuckBreast = "SONOMA DUCK BREAST"
+    private val beefShortRib = "BEEF SHORT RIB"
+    private val primeBeefFilet = "PRIME BEEF FILET"
+    private val tournedosRossini = "TOURNEDOS ROSSINI"
     val expectedTotal = "$91.0"
+    val expectedTotalForMeatMenu = "$226.0"
 
     @Test
     fun verifyCompleteOrderFlowWithPasta() {
@@ -89,6 +94,70 @@ class OrderFlowTest : BaseTest() {
         ordersList {
             sleep()
             isOrderDisplayed(republiqueName, expectedOrderDate, expectedOrderTime, expectedTotal)
+        }
+    }
+
+    @Test
+    fun verifyCompleteOrderFlowWithMeatMenu() {
+        login {
+            loginWithFacebook()
+            sleep()
+        }
+
+        restaurantList {
+            sleep()
+            tapQRBtn()
+        }
+
+        qrScreen {
+            enterQRCode(republiqueQRCode)
+            tapSubmitButton()
+        }
+
+        restaurant {
+            sleep()
+            tapMenu()
+        }
+
+        menu {
+            sleep()
+            selectMeatMenu()
+        }
+
+        menuDetails {
+            sleep()
+            addToCart(cookRanchPigsFeet)
+            addToCart(beefShortRib)
+            addToCart(sonomaDuckBreast)
+            addToCart(primeBeefFilet)
+            addToCart(tournedosRossini)
+            openShoppingCart()
+            sleep()
+        }
+
+        shoppingCart {
+            inputAddress()
+            selectAccept()
+        }
+
+        val expectedOrderDate = getCurrentDate()
+        val expectedOrderTime = getCurrentTime()
+
+        popUpMessage {
+            sleep()
+            orderSuccessMessageIsDisplayed()
+            tapAlertOkButton()
+        }
+
+        bottomNav {
+            sleep()
+            tapOrdersTab()
+        }
+
+        ordersList {
+            sleep()
+            isOrderDisplayed(republiqueName, expectedOrderDate,
+                    expectedOrderTime, expectedTotalForMeatMenu)
         }
     }
 }
