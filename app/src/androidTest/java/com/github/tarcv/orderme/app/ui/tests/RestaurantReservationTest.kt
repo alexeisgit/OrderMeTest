@@ -28,7 +28,7 @@ class RestaurantReservationTest : BaseTest() {
     private val numberOfPeople = "3"
     private val numberOfDays = 5
     private val numberOfDaysFlow14DaysTest = 14
-    private val reservationTime = "21:30"
+    var expectedReservationTime = getCurrentTime()
 
     @Test
     fun verifyReservationFlowForFiveDays() {
@@ -56,7 +56,8 @@ class RestaurantReservationTest : BaseTest() {
             enterPhoneNumber(phoneNumber)
             enternumberOfPeople(numberOfPeople)
             selectReservationDate(numberOfDays)
-            selectReservationTime(reservationTime)
+            expectedReservationTime = getCurrentTime()
+            selectReservationTime(expectedReservationTime)
             tapOnBookButton()
         }
 
@@ -75,10 +76,9 @@ class RestaurantReservationTest : BaseTest() {
 
         reservationsList {
             tapOnFutureReservationsTab()
-            scrollToLastReservationItem()
-            checkReservationsDetail(republiqueName)
-            checkReservationsDetail(getExpectedReservationDate(numberOfDays))
-            checkReservationsDetail(reservationTime)
+            sleep()
+            isReservationDetailsDisplayed(republiqueName,
+                    getExpectedReservationDate(numberOfDays), expectedReservationTime)
         }
     }
 
@@ -105,7 +105,7 @@ class RestaurantReservationTest : BaseTest() {
             enterPhoneNumber(phoneNumber)
             enternumberOfPeople(numberOfPeople)
             selectReservationDate(numberOfDaysFlow14DaysTest)
-            selectReservationTime(reservationTime)
+            selectReservationTime(expectedReservationTime)
             tapOnBookButton()
         }
 
@@ -124,10 +124,9 @@ class RestaurantReservationTest : BaseTest() {
 
         reservationsList {
             tapOnFutureReservationsTab()
-            scrollToLastReservationItem()
-            checkReservationsDetail(republiqueName)
-            checkReservationsDetail(getExpectedReservationDate(numberOfDaysFlow14DaysTest))
-            checkReservationsDetail(reservationTime)
+            sleep()
+            isReservationDetailsDisplayed(republiqueName,
+                    getExpectedReservationDate(numberOfDaysFlow14DaysTest), expectedReservationTime)
         }
     }
 }

@@ -25,7 +25,7 @@ class RestaurantReservation20DaysTest : BaseTest() {
 
     private var correctQR: String = "3_5"
     private val theNumberOfDays = 20
-    val theReservationTime = "19:40"
+    var expectedReservationTime = getCurrentTime()
 
     @Test
     fun restaurantReservationFlow20Days() {
@@ -50,7 +50,7 @@ class RestaurantReservation20DaysTest : BaseTest() {
             enterPhoneNumber("3333-333-3333")
             enterNumberOfPeople("3")
             selectReservationDate(theNumberOfDays)
-            selectReservationTime(theReservationTime)
+            selectReservationTime(expectedReservationTime)
             tapOnBookButton()
             sleep()
         }
@@ -63,13 +63,10 @@ class RestaurantReservation20DaysTest : BaseTest() {
         }
 
         reservationsList {
-            sleep()
             tapOnFutureReservationsTab()
-            scrollToLastReservationItem()
             sleep()
-            checkReservationsDetail(republiqueName)
-            checkReservationsDetail(getExpectedReservationDate(theNumberOfDays))
-            checkReservationsDetail(theReservationTime)
+            isReservationDetailsDisplayed(republiqueName,
+                    getExpectedReservationDate(theNumberOfDays), expectedReservationTime)
         }
     }
 }
