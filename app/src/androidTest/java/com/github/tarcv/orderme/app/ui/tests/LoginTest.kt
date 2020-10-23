@@ -7,6 +7,7 @@ import com.github.tarcv.orderme.app.ui.SplashActivity
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
 
 @LargeTest
@@ -16,6 +17,12 @@ class LoginTest : BaseTest() {
     @Rule
     @JvmField
     var mActivityTestRule = ActivityScenarioRule(SplashActivity::class.java)
+
+    @get: Rule
+    var chain = RuleChain.outerRule(clearPreferencesRule)
+            .around(clearDatabaseRule)
+            .around(clearFilesRule)
+            .around(mActivityTestRule)
 
     @Test
     fun verifyLoginWithFacebook() {

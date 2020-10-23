@@ -1,8 +1,8 @@
 package com.github.tarcv.orderme.app.ui.tests
 
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
-import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.github.tarcv.orderme.app.ui.SplashActivity
 import com.github.tarcv.orderme.app.ui.robots.popUpMessage
 import com.github.tarcv.orderme.app.ui.robots.qrScreen
@@ -11,15 +11,22 @@ import com.github.tarcv.orderme.app.ui.robots.restaurantList
 import junit.framework.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
 
 @LargeTest
-@RunWith(AndroidJUnit4::class)
+@RunWith(AndroidJUnit4ClassRunner::class)
 class ErrorMessageTest : BaseTest() {
 
     @Rule
     @JvmField
-    var mActivityTestRule = ActivityTestRule(SplashActivity::class.java)
+    var mActivityTestRule = ActivityScenarioRule(SplashActivity::class.java)
+
+    @get: Rule
+    var chain = RuleChain.outerRule(clearPreferencesRule)
+            .around(clearDatabaseRule)
+            .around(clearFilesRule)
+            .around(mActivityTestRule)
 
     private val wrongQrErrMsgTxt: String = "QR Code is not compatible with OrderMe " +
             "(not a place code?)"

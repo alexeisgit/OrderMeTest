@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Run UI tests') {
             steps {
-                timeout(time: 15, unit: 'MINUTES') {
+                timeout(time: 20, unit: 'MINUTES') {
                  sh '$ANDROID_HOME/platform-tools/adb connect ${EMULATOR}:5555'
                  sh '$ANDROID_HOME/platform-tools/adb uninstall com.github.tarcv.orderme.app || true'
                  sh '$ANDROID_HOME/platform-tools/adb uninstall com.github.tarcv.orderme.app.test || true'

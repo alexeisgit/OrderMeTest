@@ -14,14 +14,22 @@ import com.github.tarcv.orderme.app.ui.robots.qrScreen
 import junit.framework.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class RestaurantReservationTest : BaseTest() {
+
     @Rule
     @JvmField
     var mActivityTestRule = ActivityScenarioRule(SplashActivity::class.java)
+
+    @get: Rule
+    var chain = RuleChain.outerRule(clearPreferencesRule)
+            .around(clearDatabaseRule)
+            .around(clearFilesRule)
+            .around(mActivityTestRule)
 
     private val republiqueQRCode = "3_5"
     private val phoneNumber = "04358889067"

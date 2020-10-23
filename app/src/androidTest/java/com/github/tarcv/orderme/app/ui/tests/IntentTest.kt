@@ -6,12 +6,14 @@ import android.content.Intent.ACTION_DIAL
 import android.content.Intent.ACTION_VIEW
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.Intents.intending
+import androidx.test.espresso.intent.Intents.init
+import androidx.test.espresso.intent.Intents.release
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
 import androidx.test.espresso.intent.matcher.IntentMatchers.isInternal
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasData
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.github.tarcv.orderme.app.ui.SplashActivity
 import com.github.tarcv.orderme.app.ui.robots.login
 import com.github.tarcv.orderme.app.ui.robots.restaurant
@@ -21,15 +23,23 @@ import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.equalTo
 import org.junit.Before
 import org.junit.Rule
+import org.junit.After
 import org.junit.Test
+import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
 
 @LargeTest
-@RunWith(AndroidJUnit4::class)
+@RunWith(AndroidJUnit4ClassRunner::class)
 class IntentTest : BaseTest() {
 
     @get:Rule
-    val intentsTestRule = IntentsTestRule(SplashActivity::class.java)
+    val intentsTestRule = ActivityScenarioRule(SplashActivity::class.java)
+
+    @get: Rule
+    var chain = RuleChain.outerRule(clearPreferencesRule)
+            .around(clearDatabaseRule)
+            .around(clearFilesRule)
+            .around(intentsTestRule)
 
     private val republiguePhoneNumber = "+1 310-362-6115"
     private val republiqueLocation = "34.064198,-118.343863"
@@ -41,8 +51,14 @@ class IntentTest : BaseTest() {
     private val burgerLocation = "12.3123,23.1312"
 
     @Before
-    fun blockExternalApps() {
+    fun setup() {
+        init()
         intending(not(isInternal())).respondWith(ActivityResult(RESULT_OK, null))
+    }
+
+    @After
+    fun teardown() {
+        release()
     }
 
     @Test

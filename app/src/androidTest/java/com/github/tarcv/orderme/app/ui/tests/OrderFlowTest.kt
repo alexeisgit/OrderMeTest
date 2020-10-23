@@ -1,8 +1,8 @@
 package com.github.tarcv.orderme.app.ui.tests
 
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
-import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.github.tarcv.orderme.app.ui.SplashActivity
 import com.github.tarcv.orderme.app.ui.robots.bottomNav
 import com.github.tarcv.orderme.app.ui.robots.login
@@ -16,14 +16,22 @@ import com.github.tarcv.orderme.app.ui.robots.restaurantList
 import com.github.tarcv.orderme.app.ui.robots.shoppingCart
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
 
 @LargeTest
-@RunWith(AndroidJUnit4::class)
+@RunWith(AndroidJUnit4ClassRunner::class)
 class OrderFlowTest : BaseTest() {
-    @Rule
-    @JvmField
-    var mActivityTestRule = ActivityTestRule(SplashActivity::class.java)
+
+    @get: Rule
+    var mActivityTestRule = ActivityScenarioRule(SplashActivity::class.java)
+
+    @get: Rule
+    var chain = RuleChain.outerRule(clearPreferencesRule)
+            .around(clearDatabaseRule)
+            .around(clearFilesRule)
+            .around(mActivityTestRule)
+
     private val republiqueQRCode = "3_5"
     private val bucatiniPasta = "BUCATINI"
     private val englishPeaPasta = "ENGLISH PEA AGNOLOTTI"

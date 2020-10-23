@@ -1,26 +1,26 @@
 package com.github.tarcv.orderme.app.ui.tests
 
-import android.content.Context
-import androidx.test.platform.app.InstrumentationRegistry
-import com.facebook.login.LoginManager
+import com.github.tarcv.orderme.app.ui.robots.facebookContinueLogin
 import com.github.tarcv.orderme.app.ui.robots.facebookLogin
 import com.github.tarcv.orderme.app.ui.robots.login
 import com.github.tarcv.orderme.app.ui.utils.DateUtill
-import com.github.tarcv.orderme.app.ui.robots.facebookContinueLogin
-import org.junit.After
+import com.schibsted.spain.barista.rule.cleardata.ClearDatabaseRule
+import com.schibsted.spain.barista.rule.cleardata.ClearFilesRule
+import com.schibsted.spain.barista.rule.cleardata.ClearPreferencesRule
+import org.junit.Rule
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
 open class BaseTest {
-    @After
-    fun tearDown() {
-        LoginManager.getInstance().logOut()
-        val sharedPreferences = InstrumentationRegistry.getInstrumentation().targetContext
-                .getSharedPreferences("shared_preferences", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.clear()
-        editor.commit()
-    }
+
+    @get: Rule
+    var clearPreferencesRule = ClearPreferencesRule()
+
+    @get: Rule
+    var clearDatabaseRule = ClearDatabaseRule()
+
+    @get: Rule
+    var clearFilesRule = ClearFilesRule()
 
     fun skipLogin() {
         login {
@@ -40,17 +40,17 @@ open class BaseTest {
     fun loginWithFacebook() {
         login {
             tapLoginButton()
-            sleep(5000)
+            sleep(10000)
         }
 
         facebookLogin {
             login()
-            sleep(5000)
+            sleep(10000)
         }
 
         facebookContinueLogin {
             tapOnContinueButton()
-            sleep(5000)
+            sleep(10000)
         }
     }
 
