@@ -10,6 +10,7 @@ import com.github.tarcv.orderme.app.App
 import com.github.tarcv.orderme.app.App.Companion.tryParseTable
 import com.github.tarcv.orderme.app.BuildConfig
 import com.github.tarcv.orderme.app.Table
+import com.github.tarcv.orderme.app.Utils
 import com.github.tarcv.orderme.app.ui.home.PlacesProvider
 import com.github.tarcv.orderme.core.data.entity.Place
 
@@ -46,6 +47,7 @@ fun saveOrErrorQrCode(
             alertWrongQrCode(context, "QR Code is not compatible with OrderMe (not a place code?)")
         }
     } else {
+        Utils.countingIdlingResource.increment()
         val result = data?.getStringExtra(QR_RESULT_ERROR_KEY)
         result?.let {
             val alertDialog = AlertDialog.Builder(context).create()
@@ -56,6 +58,7 @@ fun saveOrErrorQrCode(
                 show()
             }
         }
+        Utils.countingIdlingResource.decrement()
     }
     return null
 }

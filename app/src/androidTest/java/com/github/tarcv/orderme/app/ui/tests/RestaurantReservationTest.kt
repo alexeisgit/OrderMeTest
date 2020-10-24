@@ -1,8 +1,10 @@
 package com.github.tarcv.orderme.app.ui.tests
 
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import com.github.tarcv.orderme.app.Utils
 import com.github.tarcv.orderme.app.ui.SplashActivity
 import com.github.tarcv.orderme.app.ui.robots.login
 import com.github.tarcv.orderme.app.ui.robots.restaurant
@@ -12,6 +14,8 @@ import com.github.tarcv.orderme.app.ui.robots.reservation
 import com.github.tarcv.orderme.app.ui.robots.popUpMessage
 import com.github.tarcv.orderme.app.ui.robots.qrScreen
 import junit.framework.Assert.assertEquals
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
@@ -38,6 +42,16 @@ class RestaurantReservationTest : BaseTest() {
     private val numberOfDaysFlow14DaysTest = 14
     var expectedReservationTime = getCurrentTime()
 
+    @Before
+    fun setup() {
+        IdlingRegistry.getInstance().register(Utils.countingIdlingResource)
+    }
+
+    @After
+    fun teardown() {
+        IdlingRegistry.getInstance().unregister(Utils.countingIdlingResource)
+    }
+
     @Test
     fun verifyReservationFlowForFiveDays() {
         login {
@@ -52,7 +66,6 @@ class RestaurantReservationTest : BaseTest() {
         qrScreen {
             enterQRCode(republiqueQRCode)
             tapSubmitButton()
-            sleep()
         }
 
         restaurant {
@@ -60,7 +73,6 @@ class RestaurantReservationTest : BaseTest() {
         }
 
         reservation {
-            sleep()
             enterPhoneNumber(phoneNumber)
             enternumberOfPeople(numberOfPeople)
             selectReservationDate(numberOfDays)
@@ -70,7 +82,6 @@ class RestaurantReservationTest : BaseTest() {
         }
 
         popUpMessage {
-            sleep()
             assertEquals("Alert title is incorrect", "Success!", getAlertTitleText())
             assertEquals("Alert message is incorrect", "Your reservation was made",
                     getAlertMessageText())
@@ -79,12 +90,10 @@ class RestaurantReservationTest : BaseTest() {
 
         reservation {
             tapReservationsTab()
-            sleep()
         }
 
         reservationsList {
             tapOnFutureReservationsTab()
-            sleep()
             isReservationDetailsDisplayed(republiqueName,
                     getExpectedReservationDate(numberOfDays), expectedReservationTime)
         }
@@ -101,7 +110,6 @@ class RestaurantReservationTest : BaseTest() {
         qrScreen {
             enterQRCode(republiqueQRCode)
             tapSubmitButton()
-            sleep()
         }
 
         restaurant {
@@ -109,7 +117,6 @@ class RestaurantReservationTest : BaseTest() {
         }
 
         reservation {
-            sleep()
             enterPhoneNumber(phoneNumber)
             enternumberOfPeople(numberOfPeople)
             selectReservationDate(numberOfDaysFlow14DaysTest)
@@ -118,7 +125,6 @@ class RestaurantReservationTest : BaseTest() {
         }
 
         popUpMessage {
-            sleep()
             assertEquals("Alert title is incorrect", "Success!", getAlertTitleText())
             assertEquals("Alert message is incorrect", "Your reservation was made",
                     getAlertMessageText())
@@ -127,12 +133,10 @@ class RestaurantReservationTest : BaseTest() {
 
         reservation {
             tapReservationsTab()
-            sleep()
         }
 
         reservationsList {
             tapOnFutureReservationsTab()
-            sleep()
             isReservationDetailsDisplayed(republiqueName,
                     getExpectedReservationDate(numberOfDaysFlow14DaysTest), expectedReservationTime)
         }

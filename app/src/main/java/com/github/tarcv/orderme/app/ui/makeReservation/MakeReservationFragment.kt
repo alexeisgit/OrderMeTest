@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.github.tarcv.orderme.app.R
+import com.github.tarcv.orderme.app.Utils
 import com.github.tarcv.orderme.app.onArrowButtonClickListener
 import com.github.tarcv.orderme.app.ui.FragmentStackCloser
 import com.github.tarcv.orderme.app.ui.LifecycleLogFragment
@@ -64,6 +65,7 @@ class MakeReservationFragment : MakeReservationView, LifecycleLogFragment() {
 
         make_reservation_book_button.setOnClickListener {
             bookButtonClicked()
+            Utils.countingIdlingResource.increment()
         }
 
         back_button.setOnClickListener {
@@ -85,7 +87,7 @@ class MakeReservationFragment : MakeReservationView, LifecycleLogFragment() {
                 }
                 .create()
                 .show()
-
+        Utils.countingIdlingResource.decrement()
         (parentFragment as OnReservationMadeListener).onReservationMade()
     }
 
@@ -96,6 +98,7 @@ class MakeReservationFragment : MakeReservationView, LifecycleLogFragment() {
                 .setNegativeButton(R.string.ok) { dialog, _ -> dialog.cancel() }
                 .create()
                 .show()
+        Utils.countingIdlingResource.decrement()
     }
 
     override fun notifyReservationIncomplete() {
@@ -106,6 +109,7 @@ class MakeReservationFragment : MakeReservationView, LifecycleLogFragment() {
             setButton(AlertDialog.BUTTON_NEUTRAL, "OK", { dialog, _ -> dialog.dismiss() })
             show()
         }
+        Utils.countingIdlingResource.decrement()
     }
 
     override fun getPhoneNumber(): String {
@@ -129,6 +133,7 @@ class MakeReservationFragment : MakeReservationView, LifecycleLogFragment() {
                 }
                 .create()
                 .show()
+        Utils.countingIdlingResource.decrement()
     }
 }
 

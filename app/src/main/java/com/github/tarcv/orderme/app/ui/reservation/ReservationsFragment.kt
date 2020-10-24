@@ -86,9 +86,11 @@ class ReservationsFragment : LifecycleLogFragment(), ReservationView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Utils.countingIdlingResource.increment()
         super.onViewCreated(view, savedInstanceState)
         reservation_recycler.adapter = historyReservationsAdapter
         setupTabs()
+        Utils.countingIdlingResource.decrement()
     }
 
     private fun setupTabs() {
