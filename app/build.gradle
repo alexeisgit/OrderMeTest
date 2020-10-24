@@ -96,11 +96,12 @@ dependencies {
     androidTestImplementation('com.schibsted.spain:barista:3.7.0') {
         exclude group: 'org.jetbrains.kotlin'
     }
+    androidTestImplementation 'io.fabric8:mockwebserver:0.1.0'
 }
 
 fork {
     title = "My acceptance tests"
-    testPackage = "com.github.tarcv.orderme.app.ui.tests"
+    testPackage = "com.github.tarcv.orderme.app.ui.tests.stub"
     testOutputTimeout = 120000
     poolingStrategy {
         computed {

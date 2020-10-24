@@ -10,7 +10,6 @@ import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
 import com.github.tarcv.orderme.app.ui.robots.qrScreen
 import org.junit.After
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
@@ -29,11 +28,6 @@ class QRcodeTest : BaseTest() {
             .around(clearDatabaseRule)
             .around(clearFilesRule)
             .around(mActivityTestRule)
-
-    @Before
-    fun setup() {
-        IdlingRegistry.getInstance().register(Utils.countingIdlingResource)
-    }
 
     @After
     fun teardown() {

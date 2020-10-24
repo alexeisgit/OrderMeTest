@@ -15,7 +15,6 @@ import com.github.tarcv.orderme.app.ui.robots.popUpMessage
 import com.github.tarcv.orderme.app.ui.robots.qrScreen
 import junit.framework.Assert.assertEquals
 import org.junit.After
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
@@ -41,11 +40,6 @@ class RestaurantReservationTest : BaseTest() {
     private val numberOfDays = 5
     private val numberOfDaysFlow14DaysTest = 14
     var expectedReservationTime = getCurrentTime()
-
-    @Before
-    fun setup() {
-        IdlingRegistry.getInstance().register(Utils.countingIdlingResource)
-    }
 
     @After
     fun teardown() {

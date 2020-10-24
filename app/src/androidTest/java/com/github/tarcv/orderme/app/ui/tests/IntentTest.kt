@@ -51,7 +51,7 @@ class IntentTest : BaseTest() {
     private val burgerLocation = "12.3123,23.1312"
 
     @Before
-    fun setup() {
+    fun setupIntent() {
         init()
         intending(not(isInternal())).respondWith(ActivityResult(RESULT_OK, null))
     }

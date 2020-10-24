@@ -12,7 +12,6 @@ import com.github.tarcv.orderme.app.ui.robots.callAWaiterOptions
 import com.github.tarcv.orderme.app.ui.robots.qrScreen
 import junit.framework.Assert.assertEquals
 import org.junit.After
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
@@ -33,11 +32,6 @@ class CallWaiterTest : BaseTest() {
             .around(mActivityTestRule)
 
     private val republiqueQRCode = "3_5"
-
-    @Before
-    fun setup() {
-        IdlingRegistry.getInstance().register(countingIdlingResource)
-    }
 
     @After
     fun teardown() {
