@@ -1,7 +1,5 @@
 package com.github.tarcv.orderme.app.ui.tests
 
-import androidx.test.espresso.IdlingRegistry
-import com.github.tarcv.orderme.app.Utils
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
@@ -9,7 +7,6 @@ import com.github.tarcv.orderme.app.ui.SplashActivity
 import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
 import com.github.tarcv.orderme.app.ui.robots.qrScreen
-import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
@@ -28,11 +25,6 @@ class QRcodeTest : BaseTest() {
             .around(clearDatabaseRule)
             .around(clearFilesRule)
             .around(mActivityTestRule)
-
-    @After
-    fun teardown() {
-        IdlingRegistry.getInstance().unregister(Utils.countingIdlingResource)
-    }
 
     @Test
     fun verifyDetectTableQRcodeError() {

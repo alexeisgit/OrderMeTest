@@ -4,6 +4,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.github.tarcv.orderme.app.App
 import com.github.tarcv.orderme.app.App.Companion.tryGetTable
 import com.github.tarcv.orderme.app.Bucket
+import com.github.tarcv.orderme.app.Utils
 import com.github.tarcv.orderme.core.ApiClient
 import com.github.tarcv.orderme.core.data.entity.Dish
 import com.github.tarcv.orderme.core.data.request.MakeOrderRequest
@@ -75,7 +76,7 @@ class BucketPresenter(val placeId: Int) : BucketFragment.OnCountButtonClickListe
                 view!!.getComment(),
                 view!!.getDate(),
                 view!!.getSum())
-
+        Utils.countingIdlingResource.increment()
         apiClient.makeOrder(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -86,12 +87,14 @@ class BucketPresenter(val placeId: Int) : BucketFragment.OnCountButtonClickListe
         Timber.i("onNext")
         bucket.dishes.clear()
         view!!.onOrderAccepted()
+        Utils.countingIdlingResource.decrement()
     }
 
     private fun onError(throwable: Throwable) {
         Timber.i("onError")
         throwable.printStackTrace()
         view!!.onOrderError()
+        Utils.countingIdlingResource.decrement()
     }
 
     private fun notifyTableIdIsNull() {

@@ -57,7 +57,7 @@ class IntentTest : BaseTest() {
     }
 
     @After
-    fun teardown() {
+    fun teardownIntent() {
         release()
     }
 
@@ -65,7 +65,6 @@ class IntentTest : BaseTest() {
     fun testOpenPhone() {
         login {
             loginLater()
-            sleep()
         }
 
         restaurantList {
@@ -87,7 +86,6 @@ class IntentTest : BaseTest() {
     fun testOpenBurgerPhone() {
         login {
             loginLater()
-            sleep()
         }
 
         restaurantList {

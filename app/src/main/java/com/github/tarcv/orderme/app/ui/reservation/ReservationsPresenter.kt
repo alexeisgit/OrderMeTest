@@ -3,6 +3,7 @@ package com.github.tarcv.orderme.app.ui.reservation
 import androidx.annotation.MainThread
 import android.util.Log
 import com.github.tarcv.orderme.app.App
+import com.github.tarcv.orderme.app.Utils
 import com.github.tarcv.orderme.core.ApiClient
 import com.github.tarcv.orderme.core.data.entity.Reserve
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -37,6 +38,7 @@ class ReservationsPresenter(
     }
 
     fun updateReservations() {
+        Utils.countingIdlingResource.increment()
         apiClient.getReservations()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -48,11 +50,13 @@ class ReservationsPresenter(
         Timber.i("onNext")
         Log.d("ReservationPresenter", "onNext")
         reserveSubject.onNext(response)
+        Utils.countingIdlingResource.decrement()
     }
 
     private fun onError(throwable: Throwable) {
         Timber.i("onError")
         Log.d("ReservationPresenter", "onError")
         throwable.printStackTrace()
+        Utils.countingIdlingResource.decrement()
     }
 }

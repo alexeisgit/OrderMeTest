@@ -1,6 +1,7 @@
 package com.github.tarcv.orderme.app.ui.order
 
 import com.github.tarcv.orderme.app.App
+import com.github.tarcv.orderme.app.Utils
 import com.github.tarcv.orderme.core.ApiClient
 import com.github.tarcv.orderme.core.data.entity.Order
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -38,6 +39,7 @@ class OrderPresenter {
     }
 
     fun getOrders() {
+        Utils.countingIdlingResource.increment()
         apiClient.getOrders()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -50,10 +52,12 @@ class OrderPresenter {
         orders = response
         isInitialized = true
         setOrders()
+        Utils.countingIdlingResource.decrement()
     }
 
     private fun onError(throwable: Throwable) {
         Timber.i("onError")
         throwable.printStackTrace()
+        Utils.countingIdlingResource.decrement()
     }
 }

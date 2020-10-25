@@ -27,7 +27,6 @@ class ActivityTest : BaseTest() {
     @Test
     fun verifyTapBarActivity() {
         restaurantList {
-            sleep()
             checkNumberOfRestaurants(6)
         }
     }

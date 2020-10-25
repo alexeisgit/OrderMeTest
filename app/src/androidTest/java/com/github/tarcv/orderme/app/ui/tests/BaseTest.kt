@@ -1,8 +1,8 @@
 package com.github.tarcv.orderme.app.ui.tests
 
 import androidx.test.espresso.IdlingRegistry
-import com.github.tarcv.orderme.app.App
 import com.github.tarcv.orderme.app.Utils
+import com.github.tarcv.orderme.app.App
 import com.github.tarcv.orderme.app.ui.di.AndroidTestAppComponent
 import com.github.tarcv.orderme.app.ui.robots.facebookContinueLogin
 import com.github.tarcv.orderme.app.ui.robots.facebookLogin
@@ -11,6 +11,7 @@ import com.github.tarcv.orderme.app.ui.utils.DateUtill
 import com.schibsted.spain.barista.rule.cleardata.ClearDatabaseRule
 import com.schibsted.spain.barista.rule.cleardata.ClearFilesRule
 import com.schibsted.spain.barista.rule.cleardata.ClearPreferencesRule
+import org.junit.After
 import io.fabric8.mockwebserver.DefaultMockServer
 import org.junit.Before
 import org.junit.Rule
@@ -24,6 +25,11 @@ open class BaseTest {
     fun setup() {
         IdlingRegistry.getInstance().register(Utils.countingIdlingResource)
         (App.component as AndroidTestAppComponent).injectBaseTest(this)
+    }
+
+    @After
+    fun teardown() {
+        IdlingRegistry.getInstance().unregister(Utils.countingIdlingResource)
     }
 
     @Inject
@@ -65,7 +71,7 @@ open class BaseTest {
 
         facebookContinueLogin {
             tapOnContinueButton()
-            sleep(10000)
+            sleep()
         }
     }
 

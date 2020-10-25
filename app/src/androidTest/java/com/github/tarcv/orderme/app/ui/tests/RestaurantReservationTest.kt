@@ -1,10 +1,8 @@
 package com.github.tarcv.orderme.app.ui.tests
 
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import com.github.tarcv.orderme.app.Utils
 import com.github.tarcv.orderme.app.ui.SplashActivity
 import com.github.tarcv.orderme.app.ui.robots.login
 import com.github.tarcv.orderme.app.ui.robots.restaurant
@@ -14,7 +12,6 @@ import com.github.tarcv.orderme.app.ui.robots.reservation
 import com.github.tarcv.orderme.app.ui.robots.popUpMessage
 import com.github.tarcv.orderme.app.ui.robots.qrScreen
 import junit.framework.Assert.assertEquals
-import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
@@ -41,16 +38,10 @@ class RestaurantReservationTest : BaseTest() {
     private val numberOfDaysFlow14DaysTest = 14
     var expectedReservationTime = getCurrentTime()
 
-    @After
-    fun teardown() {
-        IdlingRegistry.getInstance().unregister(Utils.countingIdlingResource)
-    }
-
     @Test
     fun verifyReservationFlowForFiveDays() {
         login {
             loginWithFacebook()
-            sleep()
         }
 
         restaurantList {

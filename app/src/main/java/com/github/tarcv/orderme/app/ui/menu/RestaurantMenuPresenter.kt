@@ -2,6 +2,7 @@ package com.github.tarcv.orderme.app.ui.menu
 
 import com.github.tarcv.orderme.app.App
 import com.github.tarcv.orderme.app.Bucket
+import com.github.tarcv.orderme.app.Utils
 import com.github.tarcv.orderme.core.ApiClient
 import com.github.tarcv.orderme.core.data.entity.Category
 import com.github.tarcv.orderme.core.data.entity.Dish
@@ -57,6 +58,7 @@ class RestaurantMenuPresenter(private val category: Category)
     }
 
     private fun getDishes() {
+        Utils.countingIdlingResource.increment()
         val observable = apiClient.getMenu(category.placeId)
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -67,10 +69,12 @@ class RestaurantMenuPresenter(private val category: Category)
     private fun updateDishes(t: GetMenuResponse) {
         val dishesOfCategory = t.dishes.filter { it.categoryId == category.id }
         view?.setDishes(dishesOfCategory)
+        Utils.countingIdlingResource.decrement()
     }
 
     private fun onError(throwable: Throwable) {
         Timber.i("onError")
         throwable.printStackTrace()
+        Utils.countingIdlingResource.decrement()
     }
 }

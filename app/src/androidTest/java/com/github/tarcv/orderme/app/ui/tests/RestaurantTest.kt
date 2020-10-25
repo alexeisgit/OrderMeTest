@@ -198,7 +198,6 @@ class RestaurantTest : BaseTest() {
 
         qrScreen {
             enterQRCode(republiqueQRCode)
-            sleep()
             tapSubmitButton()
         }
 
@@ -222,12 +221,10 @@ class RestaurantTest : BaseTest() {
 
         restaurant {
             tapMenu()
-            sleep()
         }
 
         menu {
             selectSaladsMenu()
-            sleep()
         }
 
         saladsAndVegetablesList {

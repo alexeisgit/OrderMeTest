@@ -41,22 +41,18 @@ class ShoppingCartTest : BaseTest() {
 
         qrScreen {
             enterQRCode(republiqueQRCode)
-            sleep()
             tapSubmitButton()
         }
 
         restaurant {
-            sleep()
             tapMenu()
         }
 
         menu {
-            sleep()
             selectFishMenu()
         }
 
         menuDetails {
-            sleep()
             assertEquals("0.0", verifyBucketValue())
         }
     }
@@ -67,30 +63,25 @@ class ShoppingCartTest : BaseTest() {
 
         restaurantList {
             tapQRBtn()
-            sleep()
         }
 
         qrScreen {
             enterQRCode(republiqueQRCode)
-            sleep()
             tapSubmitButton()
         }
 
         restaurant {
             tapMenu()
-            sleep()
         }
 
         menu {
             selectSaladsMenu()
-            sleep()
         }
 
         menuDetails {
             addToCart("COLEMAN FARMS LITTLE GEMS")
             addToCart("BLACK & WHITE SALAD")
             addToCart("OCTOPUS")
-            sleep()
             assertEquals("77.0", getShoppingCartValue())
         }
     }

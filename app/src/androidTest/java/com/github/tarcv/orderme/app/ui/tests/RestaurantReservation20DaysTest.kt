@@ -43,7 +43,6 @@ class RestaurantReservation20DaysTest : BaseTest() {
 
         restaurant {
             tapReservation()
-            sleep()
         }
 
         reservation {
@@ -52,19 +51,16 @@ class RestaurantReservation20DaysTest : BaseTest() {
             selectReservationDate(theNumberOfDays)
             selectReservationTime(expectedReservationTime)
             tapOnBookButton()
-            sleep()
         }
 
         popUpMessage {
             successMessageIsDisplayed()
             tapAlertOkButton()
-            sleep()
             tapReservationsTab()
         }
 
         reservationsList {
             tapOnFutureReservationsTab()
-            sleep()
             isReservationDetailsDisplayed(republiqueName,
                     getExpectedReservationDate(theNumberOfDays), expectedReservationTime)
         }

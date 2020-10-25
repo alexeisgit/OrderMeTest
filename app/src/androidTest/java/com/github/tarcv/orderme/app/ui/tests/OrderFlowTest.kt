@@ -43,17 +43,15 @@ class OrderFlowTest : BaseTest() {
     private val beefShortRib = "BEEF SHORT RIB"
     private val primeBeefFilet = "PRIME BEEF FILET"
     private val tournedosRossini = "TOURNEDOS ROSSINI"
-    val expectedTotalForMeatMenu = "$226.0"
+    private val expectedTotalForMeatMenu = "$226.0"
 
     @Test
     fun verifyCompleteOrderFlowWithPasta() {
         login {
             loginWithFacebook()
-            sleep()
         }
 
         restaurantList {
-            sleep()
             tapQRBtn()
         }
 
@@ -63,22 +61,18 @@ class OrderFlowTest : BaseTest() {
         }
 
         restaurant {
-            sleep()
             tapMenu()
         }
 
         menu {
-            sleep()
             selectPastaMenu()
         }
 
         menuDetails {
-            sleep()
             addToCart(bucatiniPasta)
             addToCart(englishPeaPasta)
             addToCart(mafaldinePasta)
             openShoppingCart()
-            sleep()
         }
 
         shoppingCart {
@@ -90,58 +84,47 @@ class OrderFlowTest : BaseTest() {
         val expectedOrderTime = getCurrentTime()
 
         popUpMessage {
-            sleep()
             orderSuccessMessageIsDisplayed()
             tapAlertOkButton()
         }
 
         bottomNav {
-            sleep()
             tapOrdersTab()
         }
 
         ordersList {
-            sleep()
             isOrderDisplayed(republiqueName, expectedOrderDate, expectedOrderTime, expectedTotal)
         }
     }
 
     @Test
     fun verifyOrderFlowWithSaladsAndVegetables() {
-
         login {
             loginWithFacebook()
-            sleep()
         }
 
         restaurantList {
             tapQRBtn()
-            sleep()
         }
 
         qrScreen {
             enterQRCode(republiqueQRCode)
             tapSubmitButton()
-            sleep()
         }
 
         restaurant {
             tapMenu()
-            sleep()
         }
 
         menu {
             selectSaladsMenu()
-            sleep()
         }
 
         menuDetails {
             addToCart("COLEMAN FARMS LITTLE GEMS")
             addToCart("BLACK & WHITE SALAD")
             addToCart("OCTOPUS")
-            sleep()
             openShoppingCart()
-            sleep()
         }
 
         shoppingCart {
@@ -153,18 +136,15 @@ class OrderFlowTest : BaseTest() {
         val expectedOderDate = getCurrentDate()
 
         popUpMessage {
-            sleep()
             orderSuccessMessageIsDisplayed()
             tapAlertOkButton()
         }
 
         bottomNav {
-            sleep()
             tapOrdersTab()
         }
 
         ordersList {
-            sleep()
             isOrderDisplayed(
                     republiqueName,
                     expectedOderDate,
@@ -177,11 +157,9 @@ class OrderFlowTest : BaseTest() {
     fun verifyCompleteOrderFlowWithMeatMenu() {
         login {
             loginWithFacebook()
-            sleep()
         }
 
         restaurantList {
-            sleep()
             tapQRBtn()
         }
 
@@ -191,24 +169,20 @@ class OrderFlowTest : BaseTest() {
         }
 
         restaurant {
-            sleep()
             tapMenu()
         }
 
         menu {
-            sleep()
             selectMeatMenu()
         }
 
         menuDetails {
-            sleep()
             addToCart(cookRanchPigsFeet)
             addToCart(beefShortRib)
             addToCart(sonomaDuckBreast)
             addToCart(primeBeefFilet)
             addToCart(tournedosRossini)
             openShoppingCart()
-            sleep()
         }
 
         shoppingCart {
@@ -220,18 +194,15 @@ class OrderFlowTest : BaseTest() {
         val expectedOrderTime = getCurrentTime()
 
         popUpMessage {
-            sleep()
             orderSuccessMessageIsDisplayed()
             tapAlertOkButton()
         }
 
         bottomNav {
-            sleep()
             tapOrdersTab()
         }
 
         ordersList {
-            sleep()
             isOrderDisplayed(republiqueName, expectedOrderDate,
                     expectedOrderTime, expectedTotalForMeatMenu)
         }

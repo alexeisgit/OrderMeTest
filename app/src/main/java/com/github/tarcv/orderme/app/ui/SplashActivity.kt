@@ -10,6 +10,7 @@ import com.facebook.FacebookException
 import com.facebook.login.LoginResult
 import com.github.tarcv.orderme.app.App
 import com.github.tarcv.orderme.app.R
+import com.github.tarcv.orderme.app.Utils
 import com.github.tarcv.orderme.app.ui.base.BaseActivity
 import com.github.tarcv.orderme.core.ApiClient
 import com.github.tarcv.orderme.core.data.response.LoginResponse
@@ -76,6 +77,7 @@ class SplashActivity : BaseActivity() {
     }
 
     fun loginOnServer(token: String) {
+        Utils.countingIdlingResource.increment()
         apiClient.login(token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -93,6 +95,7 @@ class SplashActivity : BaseActivity() {
             putInt(App.LOGIN_ID, response.id)
             putString(App.LOGIN_USER_ID, response.userId)
         }.commit()
+        Utils.countingIdlingResource.decrement()
         updateButtonText()
         startActivity()
     }
@@ -106,6 +109,7 @@ class SplashActivity : BaseActivity() {
                 .setNegativeButton(R.string.ok, { dialog, _ -> dialog.cancel() })
                 .create()
                 .show()
+        Utils.countingIdlingResource.decrement()
     }
 
     private fun startActivity() {
