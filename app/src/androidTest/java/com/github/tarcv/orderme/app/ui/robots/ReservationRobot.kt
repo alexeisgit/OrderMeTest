@@ -24,6 +24,10 @@ class ReservationRobot : BaseRobot() {
         selectDate(date.first, date.second, date.third)
     }
 
+    fun selectStubDay() {
+        selectDate(10, 11, 2020)
+    }
+
     fun selectReservationTime(reservationTime: String) {
         val hour = reservationTime.split(":")[0].toInt()
         val min = reservationTime.split(":")[1].toInt()

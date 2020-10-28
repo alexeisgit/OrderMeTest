@@ -1,4 +1,4 @@
-package com.github.tarcv.orderme.app.ui.tests
+package com.github.tarcv.orderme.app.ui.tests.stub
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
@@ -7,6 +7,8 @@ import com.github.tarcv.orderme.app.ui.SplashActivity
 import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
 import com.github.tarcv.orderme.app.ui.robots.qrScreen
+import com.github.tarcv.orderme.app.ui.tests.BaseTest
+import com.github.tarcv.orderme.app.ui.utils.readJSONFromAsset
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
@@ -28,6 +30,12 @@ class QRcodeTest : BaseTest() {
 
     @Test
     fun verifyDetectTableQRcodeError() {
+        mockWebServer.expect()
+                .get()
+                .withPath("/places")
+                .andReturn(200, readJSONFromAsset("places.json"))
+                .always()
+
         skipLogin()
 
         restaurantList {

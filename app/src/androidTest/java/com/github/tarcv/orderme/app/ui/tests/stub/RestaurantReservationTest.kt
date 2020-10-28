@@ -1,16 +1,16 @@
-package com.github.tarcv.orderme.app.ui.tests
+package com.github.tarcv.orderme.app.ui.tests.stub
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.github.tarcv.orderme.app.ui.SplashActivity
-import com.github.tarcv.orderme.app.ui.robots.login
 import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
 import com.github.tarcv.orderme.app.ui.robots.reservationsList
 import com.github.tarcv.orderme.app.ui.robots.reservation
 import com.github.tarcv.orderme.app.ui.robots.popUpMessage
 import com.github.tarcv.orderme.app.ui.robots.qrScreen
+import com.github.tarcv.orderme.app.ui.tests.BaseTest
 import junit.framework.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -34,15 +34,12 @@ class RestaurantReservationTest : BaseTest() {
     private val republiqueQRCode = "3_5"
     private val phoneNumber = "04358889067"
     private val numberOfPeople = "3"
-    private val numberOfDays = 5
-    private val numberOfDaysFlow14DaysTest = 14
-    var expectedReservationTime = getCurrentTime()
+    private val expectedDate = "2120-11-27"
+    private val expectedReservationTime = "21:30"
 
     @Test
-    fun verifyReservationFlowForFiveDays() {
-        login {
-            loginWithFacebook()
-        }
+    fun verifyReservationFlowForFutureReservation() {
+        loginWithFacebookMock()
 
         restaurantList {
             tapQRBtn()
@@ -60,9 +57,10 @@ class RestaurantReservationTest : BaseTest() {
         reservation {
             enterPhoneNumber(phoneNumber)
             enternumberOfPeople(numberOfPeople)
-            selectReservationDate(numberOfDays)
-            expectedReservationTime = getCurrentTime()
+            selectStubDay()
             selectReservationTime(expectedReservationTime)
+            mockReserve()
+            getReserve()
             tapOnBookButton()
         }
 
@@ -74,56 +72,14 @@ class RestaurantReservationTest : BaseTest() {
         }
 
         reservation {
+            mockReserve()
             tapReservationsTab()
         }
 
         reservationsList {
             tapOnFutureReservationsTab()
             isReservationDetailsDisplayed(republiqueName,
-                    getExpectedReservationDate(numberOfDays), expectedReservationTime)
-        }
-    }
-
-    @Test
-    fun verifyReservationFlowFor14Days() {
-        loginWithFacebook()
-
-        restaurantList {
-            tapQRBtn()
-        }
-
-        qrScreen {
-            enterQRCode(republiqueQRCode)
-            tapSubmitButton()
-        }
-
-        restaurant {
-            tapReservation()
-        }
-
-        reservation {
-            enterPhoneNumber(phoneNumber)
-            enternumberOfPeople(numberOfPeople)
-            selectReservationDate(numberOfDaysFlow14DaysTest)
-            selectReservationTime(expectedReservationTime)
-            tapOnBookButton()
-        }
-
-        popUpMessage {
-            assertEquals("Alert title is incorrect", "Success!", getAlertTitleText())
-            assertEquals("Alert message is incorrect", "Your reservation was made",
-                    getAlertMessageText())
-            tapAlertOkButton()
-        }
-
-        reservation {
-            tapReservationsTab()
-        }
-
-        reservationsList {
-            tapOnFutureReservationsTab()
-            isReservationDetailsDisplayed(republiqueName,
-                    getExpectedReservationDate(numberOfDaysFlow14DaysTest), expectedReservationTime)
+                    expectedDate, expectedReservationTime)
         }
     }
 }
