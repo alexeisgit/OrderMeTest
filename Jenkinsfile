@@ -5,17 +5,6 @@ pipeline {
         }
     }
     stages {
-        stage('ktlint') {
-            steps {
-                sh 'yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses && $ANDROID_HOME/tools/bin/sdkmanager --update'
-                sh './gradlew clean ktlint'
-            }
-        }
-        stage('build') {
-            steps {
-                sh './gradlew clean assembleDebug assembleAndroidTest'
-            }
-        }
         stage('Run UI tests') {
             steps {
                 timeout(time: 20, unit: 'MINUTES') {

@@ -30,7 +30,7 @@ class RestaurantReservation20DaysTest : BaseTest() {
     @Test
     fun restaurantReservationFlow20Days() {
 
-        loginWithFacebook()
+        loginWithFacebookMock()
 
         restaurantList {
             tapQRBtn()

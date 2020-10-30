@@ -1,4 +1,4 @@
-package com.github.tarcv.orderme.app.ui.tests
+package com.github.tarcv.orderme.app.ui.tests.stub
 
 import android.app.Activity.RESULT_OK
 import android.app.Instrumentation.ActivityResult
@@ -18,6 +18,7 @@ import com.github.tarcv.orderme.app.ui.SplashActivity
 import com.github.tarcv.orderme.app.ui.robots.login
 import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
+import com.github.tarcv.orderme.app.ui.tests.BaseTest
 import org.hamcrest.Matchers.not
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.equalTo
@@ -63,6 +64,8 @@ class IntentTest : BaseTest() {
 
     @Test
     fun testOpenPhone() {
+        getPlaces("places.json", always = true)
+
         login {
             loginLater()
         }
@@ -84,6 +87,8 @@ class IntentTest : BaseTest() {
 
     @Test
     fun testOpenBurgerPhone() {
+        getPlaces("places.json", always = true)
+
         login {
             loginLater()
         }
@@ -105,6 +110,8 @@ class IntentTest : BaseTest() {
 
     @Test
     fun testOpenBeautyEssexPhone() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
@@ -124,6 +131,8 @@ class IntentTest : BaseTest() {
 
     @Test
     fun testOpenHakkasanPhone() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
@@ -143,6 +152,8 @@ class IntentTest : BaseTest() {
 
     @Test
     fun testOceanLocation() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
@@ -162,6 +173,8 @@ class IntentTest : BaseTest() {
 
     @Test
     fun testRepubliqueLocation() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
@@ -178,15 +191,18 @@ class IntentTest : BaseTest() {
                         hasData("geo:$republiqueLocation")
                 )
         )
-        }
+    }
 
     @Test
     fun testOpenSeafoodPhoneNumber() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
             selectRestaurant(oceanSeafoodName)
         }
+
         restaurant {
             tapOnPhone()
 
@@ -200,13 +216,18 @@ class IntentTest : BaseTest() {
     }
     @Test
     fun testBurgerLocation() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
+
         restaurantList {
             selectRestaurant(burgerName)
         }
+
         restaurant {
             tapLocation()
         }
+
         intended(
                 allOf(
                         hasAction(equalTo(ACTION_VIEW)),

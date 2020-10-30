@@ -4,8 +4,6 @@ import androidx.test.espresso.IdlingRegistry
 import com.github.tarcv.orderme.app.Utils
 import com.github.tarcv.orderme.app.App
 import com.github.tarcv.orderme.app.ui.di.AndroidTestAppComponent
-import com.github.tarcv.orderme.app.ui.robots.facebookContinueLogin
-import com.github.tarcv.orderme.app.ui.robots.facebookLogin
 import com.github.tarcv.orderme.app.ui.robots.login
 import com.github.tarcv.orderme.app.ui.utils.DateUtill
 import com.github.tarcv.orderme.app.ui.utils.readJSONFromAsset
@@ -45,12 +43,26 @@ open class BaseTest {
     @get: Rule
     var clearFilesRule = ClearFilesRule()
 
-    fun getMock(endPoint: String, statusCode: Int, filePath: String) {
-        mockWebServer.expect()
-                .get()
-                .withPath(endPoint)
-                .andReturn(statusCode, readJSONFromAsset(filePath))
-                .once()
+    fun getMock(
+        endPoint: String,
+        statusCode: Int,
+        filePath: String,
+        repeat: Int = 1,
+        always: Boolean = false
+    ) {
+        if (always) {
+            mockWebServer.expect()
+                    .get()
+                    .withPath(endPoint)
+                    .andReturn(statusCode, readJSONFromAsset(filePath))
+                    .always()
+        } else {
+            mockWebServer.expect()
+                    .get()
+                    .withPath(endPoint)
+                    .andReturn(statusCode, readJSONFromAsset(filePath))
+                    .times(repeat)
+        }
     }
 
     fun stubOk(endPoint: String) {
@@ -61,12 +73,12 @@ open class BaseTest {
                 .always()
     }
 
-    fun postMock(endPoint: String, statusCode: Int, filePath: String) {
+    fun postMock(endPoint: String, statusCode: Int, filePath: String, repeat: Int = 1) {
         mockWebServer.expect()
                 .post()
                 .withPath(endPoint)
                 .andReturn(statusCode, readJSONFromAsset(filePath))
-                .once()
+                .times(repeat)
     }
 
     fun authMock() {
@@ -75,28 +87,28 @@ open class BaseTest {
         stubOk("/reserve")
     }
 
-    fun mockGetPlaces(filePath: String) {
-        getMock("/places", 200, filePath)
+    fun getPlaces(filePath: String, repeat: Int = 1, always: Boolean = false) {
+        getMock("/places", 200, filePath, repeat, always)
     }
 
-    fun mockGetMenu(filePath: String) {
-        getMock("/menu/3", 200, filePath)
+    fun getMenu(restaurantId: Int, filePath: String, repeat: Int = 1, always: Boolean = false) {
+        getMock("/menu/$restaurantId", 200, filePath, repeat, always)
     }
 
-    fun mockGetOrders(filePath: String) {
-        getMock("/menu/orders", 200, filePath)
+    fun getOrders(filePath: String, repeat: Int = 1, always: Boolean = false) {
+        getMock("/menu/orders", 200, filePath, repeat, always)
     }
 
-    fun mockPostOrder(filePath: String) {
+    fun getReserve(filePath: String, repeat: Int = 1, always: Boolean = false) {
+        getMock("/reserve", 200, "reserveFull.json", repeat, always)
+    }
+
+    fun postOrder(filePath: String) {
         postMock("/menu/order", 200, filePath)
     }
 
     fun mockReserve() {
         postMock("/reserve", 200, "reserve.json")
-    }
-
-    fun getReserve() {
-        getMock("/reserve", 200, "reserveFull.json")
     }
 
     fun skipLogin() {
@@ -113,41 +125,10 @@ open class BaseTest {
         return "$year-$month-$day"
     }
 
-    fun loginWithFacebook() {
-        login {
-            tapLoginButton()
-            sleep(10000)
-        }
-
-        facebookLogin {
-            login()
-            sleep(10000)
-        }
-
-        facebookContinueLogin {
-            tapOnContinueButton()
-            sleep()
-        }
-    }
-
     open fun loginWithFacebookMock() {
-        mockWebServer.expect()
-                .get()
-                .withPath("/places")
-                .andReturn(200, readJSONFromAsset("places.json"))
-                .once()
-
-        mockWebServer.expect()
-                .get()
-                .withPath("/menu/orders")
-                .andReturn(200, readJSONFromAsset("userorders.json"))
-                .once()
-
-        mockWebServer.expect()
-                .get()
-                .withPath("/reserve")
-                .andReturn(200, readJSONFromAsset("reserve.json"))
-                .once()
+        getPlaces("places.json", always = true)
+        getOrders("userorders.json")
+        getReserve("reserve.json")
 
         App.sharedPreferences.edit().apply {
             putString(App.LOGIN_TOKEN, "facebookToken")

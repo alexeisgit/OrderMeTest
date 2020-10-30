@@ -1,4 +1,4 @@
-package com.github.tarcv.orderme.app.ui.tests
+package com.github.tarcv.orderme.app.ui.tests.stub
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
@@ -9,6 +9,7 @@ import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.qrScreen
 import com.github.tarcv.orderme.app.ui.robots.menu
 import com.github.tarcv.orderme.app.ui.robots.saladsAndVegetablesList
+import com.github.tarcv.orderme.app.ui.tests.BaseTest
 import junit.framework.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -41,8 +42,12 @@ class RestaurantTest : BaseTest() {
 
     private val republiqueQRCode = "3_5"
 
+    private val republiqueId: Int = 3
+
     @Test
     fun verifyRestTitle() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
@@ -56,20 +61,9 @@ class RestaurantTest : BaseTest() {
     }
 
     @Test
-    fun verifyHakkasanCallaWaiterButtonIsVisible() {
-        skipLogin()
-
-        restaurantList {
-            selectRestaurant("Hakkasan")
-        }
-
-        restaurant {
-            checkIfButtonIsVisible("Call a waiter")
-        }
-    }
-
-    @Test
     fun verifyRomanovDetectTableBtn1() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
@@ -83,6 +77,8 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyRomanovRestaurantLocation() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
@@ -96,6 +92,8 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyBeautyEssexPhoneButton() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
@@ -109,6 +107,8 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyRomanovMenuBtn() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
@@ -121,20 +121,9 @@ class RestaurantTest : BaseTest() {
     }
 
     @Test
-    fun verifyLocationButtonIsVisible() {
-        skipLogin()
-
-        restaurantList {
-            selectRestaurant(oceanSeafoodName)
-        }
-
-        restaurant {
-            checkIfLocationBtnIsDisplayed()
-        }
-    }
-
-    @Test
     fun verifyHakkasanMenuButtonIsVisible() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
@@ -148,6 +137,8 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyHakkasanReservationBtn() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
@@ -161,6 +152,8 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyBurgerRest() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
@@ -174,6 +167,8 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyRestImageIsVisible() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
@@ -186,6 +181,8 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyQRCodeNavigatedToMenuScreen() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
@@ -208,6 +205,9 @@ class RestaurantTest : BaseTest() {
 
     @Test
     fun verifyDefaultNumberOfEachMenuItem() {
+        getPlaces("places.json", always = true)
+        getMenu(republiqueId, "menuRepublique.json", always = true)
+
         skipLogin()
 
         restaurantList {

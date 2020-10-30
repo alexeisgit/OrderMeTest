@@ -6,7 +6,6 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.github.tarcv.orderme.app.ui.SplashActivity
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
 import com.github.tarcv.orderme.app.ui.tests.BaseTest
-import com.github.tarcv.orderme.app.ui.utils.readJSONFromAsset
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Rule
@@ -30,11 +29,7 @@ class RestaurantSearchTest : BaseTest() {
 
     @Test
     fun restaurantSearch() {
-        mockWebServer.expect()
-                .get()
-                .withPath("/places")
-                .andReturn(200, readJSONFromAsset("places.json"))
-                .always()
+        getPlaces("places.json", always = true)
 
         skipLogin()
         restaurantList {

@@ -32,8 +32,6 @@ open class BaseRobot {
 
     fun tapReservationsTab() = tapBy(reservationsTab)
 
-    fun sleep(timeout: Long = 2000) = Thread.sleep(timeout)
-
     fun tapBy(matcher: Matcher<View>) = onView(matcher).perform(click())
 
     fun displayed(matcher: Matcher<View>) = onView(matcher).check(matches(isDisplayed()))

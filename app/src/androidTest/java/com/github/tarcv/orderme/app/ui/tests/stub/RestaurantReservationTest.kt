@@ -60,7 +60,7 @@ class RestaurantReservationTest : BaseTest() {
             selectStubDay()
             selectReservationTime(expectedReservationTime)
             mockReserve()
-            getReserve()
+            getReserve("reserveFull.json")
             tapOnBookButton()
         }
 

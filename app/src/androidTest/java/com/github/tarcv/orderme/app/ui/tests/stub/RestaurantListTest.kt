@@ -1,10 +1,10 @@
-package com.github.tarcv.orderme.app.ui.tests
+package com.github.tarcv.orderme.app.ui.tests.stub
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.github.tarcv.orderme.app.ui.SplashActivity
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
-import org.junit.Ignore
+import com.github.tarcv.orderme.app.ui.tests.BaseTest
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
@@ -25,10 +25,10 @@ class RestaurantListTest : BaseTest() {
 
     private val numberOfRestaurants = 6
 
-    // TODO: Remove @Ignore tag when mocks are implemented
-    @Ignore
     @Test
     fun checkNumberOfRestaurants() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
