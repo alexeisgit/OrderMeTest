@@ -1,4 +1,4 @@
-package com.github.tarcv.orderme.app.ui.tests
+package com.github.tarcv.orderme.app.ui.tests.stub
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
@@ -9,6 +9,7 @@ import com.github.tarcv.orderme.app.ui.robots.menu
 import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
 import com.github.tarcv.orderme.app.ui.robots.qrScreen
+import com.github.tarcv.orderme.app.ui.tests.BaseTest
 import junit.framework.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -30,9 +31,12 @@ class ShoppingCartTest : BaseTest() {
             .around(mActivityTestRule)
 
     private val republiqueQRCode = "3_5"
+    private val republiqueId = 3
 
     @Test
     fun verifyDefaultShoppingCartValue() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
@@ -45,6 +49,7 @@ class ShoppingCartTest : BaseTest() {
         }
 
         restaurant {
+            getMenu(republiqueId, "menuRepublique.json", always = true)
             tapMenu()
         }
 
@@ -59,6 +64,8 @@ class ShoppingCartTest : BaseTest() {
 
     @Test
     fun verifyShoppingCartTotal() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
@@ -71,6 +78,7 @@ class ShoppingCartTest : BaseTest() {
         }
 
         restaurant {
+            getMenu(republiqueId, "menuRepublique.json", always = true)
             tapMenu()
         }
 

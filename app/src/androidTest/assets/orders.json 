@@ -1,0 +1,25 @@
+[{
+  "idTable": 5,
+  "created": "2020-10-18T23:47:45.088Z",
+  "id": 1028,
+  "userId": 91,
+  "sum": 77,
+  "placeId": 3,
+  "comments": "123 Main St, NY, NY"
+}, {
+  "idTable": 5,
+  "created": "2020-10-19T11:16:27.418Z",
+  "id": 1066,
+  "userId": 91,
+  "sum": 91,
+  "placeId": 3,
+  "comments": "123 Fake Street, City"
+}, {
+  "idTable": 5,
+  "created": "2020-10-22T19:43:14.344Z",
+  "id": 1249,
+  "userId": 91,
+  "sum": 91,
+  "placeId": 3,
+  "comments": "123 Fake Street, City"
+}]

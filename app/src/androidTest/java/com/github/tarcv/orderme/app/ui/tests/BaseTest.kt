@@ -107,6 +107,10 @@ open class BaseTest {
         postMock("/menu/order", 200, filePath)
     }
 
+    fun postWaiter() {
+        postMock("/menu/waiter", 200, "waiter.json")
+    }
+
     fun mockReserve() {
         postMock("/reserve", 200, "reserve.json")
     }
@@ -127,7 +131,7 @@ open class BaseTest {
 
     open fun loginWithFacebookMock() {
         getPlaces("places.json", always = true)
-        getOrders("userorders.json")
+        getOrders("menuOrders.json")
         getReserve("reserve.json")
 
         App.sharedPreferences.edit().apply {

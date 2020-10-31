@@ -1,4 +1,4 @@
-package com.github.tarcv.orderme.app.ui.tests
+package com.github.tarcv.orderme.app.ui.tests.stub
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
@@ -8,6 +8,7 @@ import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
 import com.github.tarcv.orderme.app.ui.robots.callAWaiterOptions
 import com.github.tarcv.orderme.app.ui.robots.qrScreen
+import com.github.tarcv.orderme.app.ui.tests.BaseTest
 import junit.framework.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -32,6 +33,8 @@ class CallWaiterTest : BaseTest() {
 
     @Test
     fun verifyRepubliqueBringAMenuSuccess() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {
@@ -49,6 +52,7 @@ class CallWaiterTest : BaseTest() {
 
         restaurant {
             tapOnCallAWaiter()
+            postWaiter()
         }
 
         callAWaiterOptions {

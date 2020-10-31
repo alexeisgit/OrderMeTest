@@ -1,4 +1,4 @@
-package com.github.tarcv.orderme.app.ui.tests
+package com.github.tarcv.orderme.app.ui.tests.stub
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
@@ -8,6 +8,7 @@ import com.github.tarcv.orderme.app.ui.robots.popUpMessage
 import com.github.tarcv.orderme.app.ui.robots.qrScreen
 import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.restaurantList
+import com.github.tarcv.orderme.app.ui.tests.BaseTest
 import junit.framework.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -35,6 +36,8 @@ class ErrorMessageTest : BaseTest() {
 
     @Test
     fun verifyCorrectErrorIsDisplayed() {
+        getPlaces("places.json", always = true)
+
         skipLogin()
 
         restaurantList {

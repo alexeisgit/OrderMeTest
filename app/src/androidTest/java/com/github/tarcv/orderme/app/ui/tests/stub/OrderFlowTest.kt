@@ -47,6 +47,7 @@ class OrderFlowTest : BaseTest() {
     private val expectedTotalForMeatMenu = "$226.0"
     private val expectedDate = "2020-10-18"
     private val expectedTime = "23:47"
+    private val inputAddress = "123 Fake Street, City"
 
     @Test
     fun verifyCompleteOrderFlowWithPasta() {
@@ -80,7 +81,7 @@ class OrderFlowTest : BaseTest() {
         }
 
         shoppingCart {
-            inputAddress()
+            typeComment(inputAddress)
             selectAccept()
         }
 
@@ -131,7 +132,7 @@ class OrderFlowTest : BaseTest() {
         }
 
         shoppingCart {
-            inputAddress()
+            typeComment(inputAddress)
             selectAccept()
         }
 
@@ -188,7 +189,7 @@ class OrderFlowTest : BaseTest() {
         }
 
         shoppingCart {
-            inputAddress()
+            typeComment(inputAddress)
             selectAccept()
         }
 
