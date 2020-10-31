@@ -103,6 +103,10 @@ open class BaseTest {
         getMock("/reserve", 200, "reserveFull.json", repeat, always)
     }
 
+    fun getReserve() {
+        getMock("/reserve", 200, "reserveFull.json")
+    }
+
     fun postOrder(filePath: String) {
         postMock("/menu/order", 200, filePath)
     }

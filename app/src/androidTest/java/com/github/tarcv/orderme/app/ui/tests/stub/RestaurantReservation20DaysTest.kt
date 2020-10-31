@@ -1,4 +1,4 @@
-package com.github.tarcv.orderme.app.ui.tests
+package com.github.tarcv.orderme.app.ui.tests.stub
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
@@ -10,8 +10,10 @@ import com.github.tarcv.orderme.app.ui.robots.restaurant
 import com.github.tarcv.orderme.app.ui.robots.reservation
 import com.github.tarcv.orderme.app.ui.robots.popUpMessage
 import com.github.tarcv.orderme.app.ui.robots.reservationsList
+import com.github.tarcv.orderme.app.ui.tests.BaseTest
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
 
 @LargeTest
@@ -23,9 +25,15 @@ class RestaurantReservation20DaysTest : BaseTest() {
     @JvmField
     var mActivityTestRule = ActivityScenarioRule(SplashActivity::class.java)
 
+    @get: Rule
+    var chain = RuleChain.outerRule(clearPreferencesRule)
+            .around(clearDatabaseRule)
+            .around(clearFilesRule)
+            .around(mActivityTestRule)
+
     private var correctQR: String = "3_5"
-    private val theNumberOfDays = 20
-    var expectedReservationTime = getCurrentTime()
+    private val expectedDate = "2120-11-27"
+    private val expectedReservationTime = "21:30"
 
     @Test
     fun restaurantReservationFlow20Days() {
@@ -48,8 +56,10 @@ class RestaurantReservation20DaysTest : BaseTest() {
         reservation {
             enterPhoneNumber("3333-333-3333")
             enterNumberOfPeople("3")
-            selectReservationDate(theNumberOfDays)
+            selectStubDay()
             selectReservationTime(expectedReservationTime)
+            mockReserve()
+            getReserve()
             tapOnBookButton()
         }
 
@@ -62,7 +72,7 @@ class RestaurantReservation20DaysTest : BaseTest() {
         reservationsList {
             tapOnFutureReservationsTab()
             isReservationDetailsDisplayed(republiqueName,
-                    getExpectedReservationDate(theNumberOfDays), expectedReservationTime)
+                    expectedDate, expectedReservationTime)
         }
     }
 }
